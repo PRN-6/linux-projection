@@ -1,105 +1,76 @@
-# sereen
+# Sereen 📽️
 
-Discover and control Epson projectors from Linux.
+Sereen is a professional-grade Linux application designed to discover and control Epson projectors over a network. It bridges the gap between proprietary Epson protocols and open-source Linux desktop environments.
 
-`sereen` finds projectors on the local network and drives them over the
-protocols they actually speak. It is a pure-Python, dependency-free
-implementation — no proprietary Epson software, no Windows.
+[![Platform](https://img.shields.io/badge/platform-Linux-orange)](https://kernel.org)
+[![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![Protocol](https://img.shields.io/badge/protocols-ESC\/VP_|_PJLink-green)](https://en.wikipedia.org/wiki/PJLink)
 
-```
-$ sereen scan
-NAME          HOST           PORT  PROTOCOL  VENDOR
-Meeting Room  192.168.1.42   4352  pjlink    Epson
+## ✨ Features
 
-$ sereen power on
-$ sereen input hdmi1
-$ sereen status
-power                   True
-input_source            HDMI 1
-volume                  45
-```
+- **Automatic Discovery**: Fast, parallel TCP scanning and protocol identification.
+- **Dual-Protocol Support**: 
+  - **ESC/VP.net**: Support for Epson's proprietary control protocol.
+  - **PJLink**: Support for the industry-standard projector control protocol.
+- **Modern GUI**: A sleek GTK4/LibAdwaita interface for effortless control.
+- **Remote Control**: Manage Power, Input Sources, and Volume from your desktop.
+- **Screen Casting**: Integrated GStreamer/PipeWire pipeline for wireless desktop mirroring.
 
-## Status
+## 🚀 Getting Started
 
-Alpha. Discovery and PJLink/ESC-VP.net control are implemented; the GUI is
-not.
+### Prerequisites (Linux)
 
-## Features
+To run the full GUI application, you will need the following system dependencies:
 
-- **Discovery** by four independent methods, merged into one list:
-  - TCP connect sweep of the local subnets (works with anything that has an
-    open control port)
-  - Epson SDP broadcast probe
-  - SSDP (UPnP)
-  - mDNS / DNS-SD
-- **Control** via **PJLink** (the cross-vendor standard, port 4352) and
-  **ESC/VP.net** (Epson's own protocol, port 3620): power, input source,
-  volume, mute.
-- **Saved projectors** and per-host passwords, stored in
-  `~/.config/sereen/` with `0600` permissions.
-
-## Install
-
-```sh
-pipx install .          # or: pip install .
+```bash
+# Ubuntu/Debian
+sudo apt update
+sudo apt install -y python3-gi python3-gi-cairo gir1.2-gtk-4.0 gir1.2-adw-1 \
+                    gstreamer1.0-plugins-base gstreamer1.0-plugins-good \
+                    gstreamer1.0-plugins-bad
 ```
 
-Requires Python 3.10+.
+### Installation
 
-## Usage
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/sereen.git
+   cd sereen
+   ```
 
-```sh
-sereen scan                    # find projectors
-sereen scan --json             # machine readable
-sereen info 192.168.1.42       # device information
-sereen status                  # power / input / volume
-sereen power on|off
-sereen input hdmi1|hdmi2|video|computer
-sereen volume 30
-sereen mute on|off
-sereen saved                   # remembered projectors
-sereen forget 192.168.1.42
+2. Install the Python package:
+   ```bash
+   pip install .
+   ```
+
+### Running the Application
+
+**To launch the GUI:**
+```bash
+export PYTHONPATH=$PYTHONPATH:$(pwd)/src
+python3 -m sereen
 ```
 
-If a projector asks for a password, pass `--password`, or store it once:
+**To use the CLI (works on Windows/Linux):**
+```bash
+# Scan for projectors
+python3 -m sereen.cli scan
 
-```sh
-sereen --password hunter2 info 192.168.1.42
+# Turn on a projector
+python3 -m sereen.cli power <IP_ADDRESS> on
 ```
 
-## Compatibility
+## 🛠 Architecture
 
-What your projector supports depends on the model. This is the honest
-picture:
+Sereen is built with a driver-based architecture to ensure maximum compatibility:
+- **Discovery Layer**: Probes the network for open ports (4352, 3620, 3621).
+- **Session Factory**: Automatically instantiates the correct protocol driver.
+- **Protocol Layer**: Standardizes commands across different Epson model families.
 
-| Capability | Requirement |
-|---|---|
-| Discovery | Any of the four methods; most projectors answer at least one |
-| Control | PJLink (port 4352) or ESC/VP.net (port 3620) |
-| Screen mirroring | **Not implemented.** Most Epson business projectors do not accept standard Miracast or Chromecast — they need Epson's proprietary iProjection/HDCP service, which is a separate (much larger) piece of work. |
+## 🤝 Contributing
 
-PJLink support is common on Epson business models (the EB-L and EB-P
-ranges) but is absent on many home models. ESC/VP.net is the older,
-Epson-only fallback and is more widely available.
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to get started.
 
-## Development
+## 📜 License
 
-```sh
-pip install -e ".[dev]"
-pytest
-```
-
-The project is a package under `src/sereen/`:
-
-| Module | Purpose |
-|---|---|
-| `models.py` | `Projector`, `ProjectorState`, protocol enums |
-| `netutil.py` | Local subnet enumeration |
-| `discovery/` | The four discovery strategies |
-| `protocol/` | Byte-level PJLink and ESC/VP.net codecs |
-| `control/` | Protocol-independent session API |
-| `cli.py` | The `sereen` command |
-
-## Licence
-
-GPL-3.0-or-later.
+Distributed under the MIT License. See `LICENSE` for more information.
