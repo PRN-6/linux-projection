@@ -1,0 +1,2731 @@
+
+===== PAGE 1 =====
+SEIKO EPSON CONFIDENTIAL
+1/59
+ESC/VP.net SOFTWARE DEVELOPMENT
+MANUAL
+SEIKO EPSON
+
+===== PAGE 2 =====
+SEIKO EPSON CONFIDENTIAL
+2/59
+REVISION HISTORY
+REV. Sheet No. CONTENTS
+A
+B
+C
+D
+E
+F
+All pages
+13,36,37-39,
+44-53,
+14
+47
+49-51
+56, 57
+14
+57,58
+14
+57,58
+58
+New
+Add the new command corresponded to EMP/PL-745/835 and modifying the expression of models.
+Adds new type to IM-Type list
+Adds new parameter to parameter list for security system setting command.
+Adds new commands.
+Corrects command list.
+Adds new type to IM-Type list
+Adds new models
+Adds new type to IM-Type list
+Adds new models (Type L)
+Adds new models(EB-450Wi/Brigh/tLink450Wi/450W/460i/460/460e/84H/84He/84+/84L/85H/85+
+/825H/825+/826WH/826W+)
+
+===== PAGE 3 =====
+SEIKO EPSON CONFIDENTIAL
+3/59
+Contents
+1. INTRODUCTION 7
+1.1 PURPOSE OF THIS MANUAL 7
+1.2 SCOPE OF APPLICATION 7
+2. OVERVIEW 7
+2.1 PROJECTOR CONTROL 7
+2.2 PROJECTOR MONITORING 7
+3. DETAILS 7
+3.1 SYSTEM CONFIGURATION 7
+3.2 PROJECTOR CONTROL 8
+3.3 PROJECTOR MONITORING 8
+4. PROTOCOLS 8
+4.1 ESC/VP.NET PROTOCOL (ESC/VP.NET CONNECTION PROCESSING) 8
+4.2 ESC/VP.NET COMMUNICATION (AFTER SESSION ESTABLISHMENT) 8
+4.3 ESC/VP.NET COMMANDS 8
+5. ESC/VP.NET PROTOCOL SPECIFICATIONS 9
+5.1 GLOSSARY 9
+5.2 ABOUT NOTATION 9
+5.2.1 About data types 9
+5.2.2 Other notations 9
+5.3 PROTOCOL SPECIFICATIONS OUTLINE 10
+5.3.1 Range of protocol specifications 10
+5.3.2 Protocol features 10
+5.4 ENTIRE OPERATION 11
+5.4.1 Format common to request and response 12
+5.4.2 Header 13
+5.5 COMMUNICATION IN SESSION-LESS MODE 15
+5.5.1 HELLO request/response 15
+5.6 COMMUNICATION IN SESSION MODE 17
+5.6.1 About bidirectional communication session 17
+5.6.2 PASSWORD request/response 18
+5.6.3 CONNECT request/response 20
+5.8 RESTRICTIONS 23
+6.ESC/VP.NET COMMAND SPECIFICATIONS 24
+SET SNMP TRAP DESTINATION ADDRESS1 24
+GET SNMP TRAP DESTINATION ADDRESS1 24
+SET SNMP TRAP DESTINATION ADDRESS2 24
+GET SNMP TRAP DESTINATION ADDRESS2 25
+SET PROJECTOR NAME 25
+
+===== PAGE 4 =====
+SEIKO EPSON CONFIDENTIAL
+4/59
+GET PROJECTOR NAME 25
+SET COMMUNITY NAME 26
+GET COMMUNITY NAME 26
+GET MAC ADDRESS (WIRED LAN) 26
+GET MAC ADDRESS (WIRELESS LAN) 27
+SET MAIL DESTINATION ADDRESS1 27
+GET MAIL DESTINATION ADDRESS1 28
+SET MAIL DESTINATION ADDRESS2 28
+GET MAIL DESTINATION ADDRESS2 29
+GET MAIL DESTINATION ADDRESS3 30
+SET SMTP SERVER IP ADDRESS 30
+GET SMTP SERVER IP ADDRESS 30
+SET SMTP PORT NUMBER 31
+GET SMTP PORT NUMBER 31
+SET NOTIFICATION EVENT1 32
+GET NOTIFICATION EVENT1 32
+SET NOTIFICATION EVENT2 33
+GET NOTIFICATION EVENT2 33
+SET NOTIFICATION EVENT3 34
+GET NOTIFICATION EVENT3 34
+SET MAIL NOTIFICATION FUNCTIONON/OFF 35
+GET MAIL NOTIFICATION FUNCTIONON/OFF 35
+TEST MAIL FUNCTION 36
+SET IP ADDRESS, SUB-NET MASK, DEFAULT GATEWAY(WIRED LAN) 37
+GET IP ADDRESS, SUB-NET MASK, DEFAULT GATEWAY(WIRED LAN) 38
+SET WINS ADDRESS (WIRED LAN) 38
+GET WINS ADDRESS (WIRED LAN) 39
+GET DNS ADDRESS (WIRED LAN) 39
+SET IP ADDRESS, SUB-NET MASK, DEFAULT GATEWAY(WIRELESS LAN) 40
+SET WINS ADDRESS (WIRELESS LAN) 41
+SET DNS ADDRESS (WIRELESS LAN) 42
+GET DNS ADDRESS (WIRELESS LAN) 42
+SET DNS SUFFIX (WIRED LAN) 43
+SET DNS SUFFIX (WIRELESS LAN) 44
+GET DNS SUFFIX (WIRELESS LAN) 44
+SET IP ADDRESS, SUB-NET MASK, DEFAULT GATEWAY（FOR 802.1X） 45
+GET IP ADDRESS, SUB-NET MASK, DEFAULT GATEWAY（FOR 802.1X） 45
+SET THE SECOND ESSID 46
+GET THE SECOND ESSID 46
+SET THE THIRD ESSID 46
+GET THE THIRD ESSID 47
+
+===== PAGE 5 =====
+SEIKO EPSON CONFIDENTIAL
+5/59
+SET SECURITY SYSTEM 47
+GET SECURITY SYSTEM 48
+SET WEP KEY ID 48
+GET WEP KEY ID 49
+SET WEP ENCRYPTION KEY 1 49
+GET WEP ENCRYPTION KEY 1 49
+SET WEP ENCRYPTION KEY 2 50
+GET WEP ENCRYPTION KEY 2 50
+SET WEP ENCRYPTION KEY 3 51
+GET WEP ENCRYPTION KEY 3 51
+SET WEP ENCRYPTION KEY 4 52
+GET WEP ENCRYPTION KEY 4 52
+SET PRIOR INTERFACE 53
+GET PRIOR INTERFACE 53
+SET LEAP USER NAME 53
+GET LEAP USER NAME 54
+SET LEAP PASSWARD 54
+GET LEAP PASSWORD 54
+SET WPA-PSK KEY 55
+GET WPA-PSK KEY 55
+VALIDATE SETTING VALUE IN THE PROJECTOR 55
+6.1 CHARACTER RESTRICTIONS 56
+SET PROJECTOR NAME (NWPNAME) 56
+COMMUNITY NAME (NWCNAME) 56
+MAIL DESTINATION ADDRESS X(NWSMTPT0X) 56
+ＥＳＳＩＤ（NWWLCNF、NWWLCNFS、NWESSID2、NWESSID3） 56
+6.2 COMMAND LIST 57
+SET IP ADDRESS, SUB-NET MASK, DEFAULT GATEWAY（FOR 802.1X） 58
+GET IP ADDRESS, SUB-NET MASK, DEFAULT GATEWAY（FOR 802.1X） 58
+SET THE SECOND ESSID 58
+GET THE SECOND ESSID 58
+SET THE THIRD ESSID 58
+GET THE THIRD ESSID 58
+SET SECURITY SYSTEM 58
+GET SECURITY SYSTEM 58
+SET WEP KEY ID 58
+GET WEP KEY ID 58
+SET WEP ENCRYPTION KEY 1 58
+GET WEP ENCRYPTION KEY 1 58
+SET WEP ENCRYPTION KEY 2 58
+GET WEP ENCRYPTION KEY 2 58
+
+===== PAGE 6 =====
+SEIKO EPSON CONFIDENTIAL
+6/59
+SET WEP ENCRYPTION KEY 3 58
+GET WEP ENCRYPTION KEY 3 58
+SET WEP ENCRYPTION KEY 4 58
+GET WEP ENCRYPTION KEY 4 58
+SET PRIOR INTERFACE 58
+GET PRIOR INTERFACE 58
+SET LEAP USER NAME 58
+GET LEAP USER NAME 58
+SET LEAP PASSWARD 58
+GET LEAP PASSWARD 58
+SET WPA-PSK KEY 58
+GET WPA-PSK KEY 58
+6.3 MODELS 58
+7. APPENDIX A: COMMAND TO GET PROJECTOR STATUS INFORMATION 59
+7.1 GET EVENT TYPE (IMEVENT?) 59
+
+===== PAGE 7 =====
+SEIKO EPSON CONFIDENTIAL
+7/59
+1. INTRODUCTION
+1.1 Purpose of This Manual
+This manual describes the ESC/VP.net protocol specifications and ESC/VP.net command specifications to develop software
+using ESC/VP.net.
+This document provides specifications of ESC/VP.net protocol and its command to develop a software to use ESC/VP.net.
+1.2 Scope of application
+This protocol applies to the SEIKO EPSON projectors which sapport networking and ESC/VP21.
+2. OVERVIEW
+ESC/VP.net uses the ESC/VP21 commands to provide the functions to control and monitor a projector via a network (LAN).
+2.1 Projector Control
+The ESC/VP21 commands are sent to the projector from the controller (example: PC) connected to the network to control the
+projector.
+2.2 Projector Monitoring
+The projector connected to the network gives the projector status information, such as an alarm status, to the monitor (example:
+PC) to monitor the projector status in real time.
+3. DETAILS
+3.1 System Configuration
+LAN
+PC(Controller/monitor)
+Client Server
+Projector
+Communication
+ESC/VP.net
+connection
+processing status
+ESC/VP21command
+send/receive status
+Communication
+Shift
+ESC/VP.net
+connection command
+ESC/VP21command
+StatusData Status Data
+ESC/VP.net
+connection command
+ESC/VP.net
+connection
+processing status
+Communication
+Shift
+Projector status
+information
+ESC/VP21command
+Projector status
+information
+ESC/VP21command
+send/receive status
+ESC/VP.net uses a client-server system, in which the projector side is defined as a server and the controller/monitor side as a
+client.
+In communication between the server and client, ESC/VP.net connection processing is performed, and then the ESC/VP21
+commands are sent/received.
+
+===== PAGE 8 =====
+SEIKO EPSON CONFIDENTIAL
+8/59
+3.2 Projector Control
+This function controls the projector using the ESC/VP21 commands after completion of ESC/VP.net connection processing.
+Therefore, it achieves the same function as the projector control using the ESC/VP21 commands with RS-232C or USB.
+3.3 Projector Monitoring
+This function gives the projector status information from the server to the client to monitor the projector status on the client
+side. At this time, the projector status information is as described below.
+Projector status : Standby, warm-up, normal, cool-down
+Warning : Lamp life, no signal, unsupported signal, air filter, high temperature
+Alarm: : Lamp ON failure, lamp lid open, lamp burnout (ON, then OFF), fan, temperature sensor, high temperature, interior
+(system)
+*The warning and alarm definitions change depending on the model.
+The data format is as follows:
+IMEVENT W XX YYYY ZZZZ<CR>:
+For the settings of the parameter W, X, Y , Z, refer to the ESC/VP21 command IMEVENT? (refer to 7. Appendix A:
+COMMAND TO GET PROJECTOR STA TUS INFORMA TION).
+When giving the above information during processing of the command sent from the client on the server side (return a response
+to the client as the ESC/VP21 command), give it after command processing.
+4. PROTOCOLS
+4.1 ESC/VP.net Protocol (ESC/VP.net connection processing)
+The ESC/VP.net protocol is defined in "5. ESC/VP.net PROTOCOL SPECIFICATIONS".
+4.2 ESC/VP.net Communication (after session establishment)
+The ESC/VP.net communication protocol shall comply with ESC/VP21.
+4.3 ESC/VP.net Commands
+The ESC/VP.net commands shall comply with the ESC/VP21 commands.
+However, the following commands are defined as the ESC/VP.net dedicated commands.
+(Refer to 6. ESC/VP.net COMMAND SPECIFICATIONS.)
+
+===== PAGE 9 =====
+SEIKO EPSON CONFIDENTIAL
+9/59
+5. ESC/VP.net PROTOCOL SPECIFICATIONS
+5.1 Glossary
+Session Logical communication from the start to the end of communication between applications.
+Client Program that issues a request to the server.
+The PC application (EMPMonitor, etc.) is a client.
+Server Program that responds to a request from the client.
+The projector application is a server.
+Message Datagram that is the basic unit of communication.
+Request Message that describes a request to the target of communication.
+Response Message that describes a response to the request.
+5.2 About Notation
+5.2.1 About data types
+The data types used in this specification are defined as follows.
+The byte order shall be the network byte order (big endian).
+STR Fixed-length character string. A character string in excess of the specified byte length cannot be
+stored.
+When the character string to be stored is less than the byte length, the storage of the character string
+starts from the beginning of the area, and the remaining area is filled with 0x00. When the character
+string is blank, all the area is filled with 0x00.
+Unless otherwise specified, the character code is US-ASCII.
+BYTE 8-bit data sequence
+CHAR 8-bit signed value (-128 to +127)
+UCHAR 8-bit unsigned value (0 to 255)
+SHORT 16-bit signed value (-32768 to +32767)
+USHORT 16-bit unsigned value (0 to 65535)
+5.2.2 Other notations
+Reserved values are unused for such reasons as to maintain future matching. In the installation of the current version, reserved
+values must not be used.
+The part enclosed in double quotation marks represents a character string without the double quotation marks. When there are
+only double quotation marks, they represent a null character string.
+a..b represents the specified range (from a to b).
+Values beginning with 0x are hexadecimal numbers, and others are decimal numbers.
+
+===== PAGE 10 =====
+SEIKO EPSON CONFIDENTIAL
+10/59
+5.3 Protocol Specifications Outline
+5.3.1 Range of protocol specifications
+This protocol realizes non-procedural communication on TCP/IP to achieve projector control using ESC/VP21.
+This is the protocol corresponding to the session layer of the OSI reference model.
+Serial Connection TCP/IP Connection
+Application layer
+Presentation layer ESC/VP21
+Session layer ESC/VP.net
+Transport layer TCP, UDP
+Network layer IP
+Data link layer
+Non-procedural
+Physical layer RS-232C Ethernet, etc.
+5.3.2 Protocol features
+This protocol has the following features.
+● Achieves non-procedural communication on TCP/IP. 
+● Small enough to be installed on a microcomputer of a few resources. 
+● On the other hand, consideration is given to future extensibility. 
+● Has a kind of directory service function to grasp the projectors existing on the network if they have not been 
+pre-registered.
+● Compatibility with the conventional protocol (ESC/VP over TCP/IP version 1.0) is not taken into consideration. 
+EMPMonitor runs the conventional protocol and new protocol on different ports and different threads independently to
+hold downward compatibility.
+● The purpose is projector control, and no consideration is given to use in presentation support applications, etc. 
+
+===== PAGE 11 =====
+SEIKO EPSON CONFIDENTIAL
+11/59
+5.4 Entire Operation
+This protocol has two communication modes, session-less mode and session mode. Both modes are for communication made
+by client/server models.
+The TCP/UDP port 3629 is used. This is a default value, and changing the settings of both the client and server enables use of
+the other port.
+[Session-less mode]
+Client Server
+1. Request
+2. Response
+UDP/broadcast
+UDP
+2. Request
+3. Response
+4. Session establishment
+1. TCP connection open
+5. TCP connection cutoff
+Bidirectional
+communication
+TCPconnection
+[Session mode]
+Client Server
+
+===== PAGE 12 =====
+SEIKO EPSON CONFIDENTIAL
+12/59
+5.4.1 Format common to request and response
+The part common to the request and response are defied as follows.
+The size of the common part is a 16-byte fixed length.
+Byte Length Type Value Meaning
+10 STR "ESC/VP.net" Protocol identifier
+1 BYTE 0x10 Version identifier
+4 high-order bits indicate a major version, and 4 low-order bits a minor version.
+1 UCHAR 0..3 Type identifier
+0: NULL (reserved) 1:HELLO 2:PASSWORD 3:CONNECT
+2 USHORT (Reserved) Reserved area for the sequence number. Always set 0 in the current stage.
+1 BYTE Always set 0x00 for a request.
+Set the status code for a response.
+1 UCHAR Specify the number of headers that will follow.
+Set 0 when not using headers.
+This is followed by the specified number of headers.
+The status code is defined as follows.
+0x20 OK Normal termination
+0x40 Bad Request Request cannot be understood as its grammar is wrong.
+0x41 Unauthorized Password is required.(The client issues a request again with the password added.)
+0x43 Forbidden Password is wrong.
+0x45 Request not allowed Disallowed type request.
+0x53 Service Unavailable The projector is BUSY, etc.
+0x55 Protocol Version NotSupported Unsupported version.
+
+===== PAGE 13 =====
+SEIKO EPSON CONFIDENTIAL
+13/59
+5.4.2 Header
+The structure of one header is defined as follows.
+The size of one header is 18-byte fixed length. This is repeated by the specified number of times.
+Byte Length Type Value Meaning
+1 UCHAR 0..5 Header identifier
+0:NULL (reserved) 1:Password 2:New-Password
+3:Projector-Name 4:IM-Type 5:Projector-Command-Type
+1 UCHAR Header attribute value
+0:NULL 1..255: Meaning changes depending on the identifier.
+16 STR Header information
+Password header
+In the Password header, describe a password as the header information.
+As the attribute value, specify the encoding format of the password.
+The currently defined attribute values are as follows.
+Attribute Value Meaning
+0 NULL means "no password".
+At this time, the header information must be a null character string.
+1 Plain (no encoding)
+The password is stored into the header information unchanged in plain text.
+The characters that can be used as a password are printable ASCII characters.
+New-Password header
+In the New-Password header, describe projector name as the header information.
+The attribute values are the same as those of the password header.
+Projector-Name header
+In the Projector-Name header, describe a new password as the header information.
+As the attribute value, specify the character code used to describe the projector name.
+The currently defined attribute values are as follows.
+Attribute Value Meaning
+0 NULL means "no prokector name".
+At this time, the header information must be a null character string.
+1 US-ASCII
+2 Shift-JIS (Reserved)
+3 EUC-JP (Reserved)
+
+===== PAGE 14 =====
+SEIKO EPSON CONFIDENTIAL
+14/59
+IM-Type header
+In the IM-Type header, specify the IM type as the attribute value. The projector types are listed in Chapter7.1
+The header information cannot be described. (Set 0x00 to all.)
+The currently defined attribute values are as follows.
+Attribute Value Meaning
+10-15 (Reserved)
+16-19 Type A
+17-19 (Reserved)
+0C Type D
+20 Initial model of EMP/PL-735
+21 Type C, Type E
+22 Type F
+23 Type G
+24-29 (Reserved)
+30 Type B
+31-39 (Reserved)
+40 Type H
+41 Type I
+42 Type J
+43-49 (Reserved)
+50 Type K
+51-59 (Reserved)
+Projector-Command-Type header
+In the Projector-Command-Type header, specify the type of the projector command system as the attribute value.
+The header information cannot be described. (Set 0x00 to all.)
+The currently defined attribute values are as follows.
+Attribute Value Meaning
+22 (0x16) ESC/VP Level6 (Reserved)
+33 (0x21) ESC/VP21 Ver1.0
+4 high-order bits indicate a command system type, and 4 low-order bits a command system version.
+
+===== PAGE 15 =====
+SEIKO EPSON CONFIDENTIAL
+15/59
+5.5 Communication in Session-less Mode
+In the session-less mode, a request and response are exchanged without a session being established.
+Communication in the session-less mode is made in the following procedure.
+1. The client sends a request to all servers.
+The request is sent to the UDP port 3629 of the broadcast address.
+2. The server that received the request sends a response to the client that sent the request.
+The response is sent to the UDP port 3629 of the address of the client that sent the request .
+A "HELLO" request can be used in the session-less mode.
+5.5.1 HELLO request/response
+A HELLO request/response confirms the server existence and type.
+The request header cannot be used in the HELLO request.
+The server must not demand a password for the HELLO request.
+The response header of the response in reply to the HELLO request must include all of Projector-Name, IM-Type and
+Projector-Command-Type.
+The IP address of the projector that returned the response is not included in the response since it can be gotten from the UDP
+packet.
+The following indicates an example of HELLO request/response communication.
+Request
+(Request: Sent to the broadcast address and UDP port 55799 (changeable).)
+Byte Length Type Value Meaning
+10 STR "ESC/VP.net" Protocol identifier
+1 BYTE 0x10 Version identifier
+1 UCHAR 1 Type identifier: HELLO
+2 USHORT 0 (Reserved)
+1 BYTE 0x00 Status code: Always set 0x00 since it is a
+request.
+1 UCHAR 0 Number of headers: No headers
+
+===== PAGE 16 =====
+SEIKO EPSON CONFIDENTIAL
+16/59
+Response
+(Response: Sent to the address of the client that sent the request and UDP port 3629.)
+Byte Length Type Value Meaning
+10 STR "ESC/VP.net" Protocol identifier
+1 BYTE 0x10 Version identifier
+1 UCHAR 1 Type identifier: HELLO
+2 USHORT 0 (Reserved)
+1 BYTE 0x20 Status code: OK
+1 UCHAR 3 Number of headers: 3
+1 UCHAR 3 Header 1 identifier: Projector-Name
+1 UCHAR 1 Header 1 attribute value: US-ASCII
+16 STR "Room 1" Header 1 information: Projector name
+1 UCHAR 4 Header 2 identifier: IM-Type
+1 UCHAR 10 Header 2 attribute value: IM-M
+16 STR "" Header 2 information: None
+1 UCHAR 5 Header 3 identifier: Projector-Command-Type
+1 UCHAR 33 Header 3 attribute value: ESC/VP21 Ver1.0
+16 STR "" Header 3 information: None
+Note: the response size of the following projector types is 72Byte.
+Type A and D: EMP/PL-830/7800/7900/8300/9300/TW500
+(Response: Error response)
+Byte Length Type Value Meaning
+10 STR "ESC/VP.net" Protocol identifier
+1 BYTE 0x10 Version identifier
+1 UCHAR 1 Type identifier: HELLO
+2 USHORT 0 (Reserved)
+1 BYTE 0x40 Status code: Bad Request
+1 UCHAR 0 Number of headers: 0
+
+===== PAGE 17 =====
+SEIKO EPSON CONFIDENTIAL
+17/59
+5.6 Communication in Session Mode
+In the session mode, a request and response are exchanged to establish a session, and non-procedural communication is made
+after establishment of the session.
+Communication in the session mode is made in the following procedure.
+1. The server stands by at the TCP port 3629.
+2. The client demands a TCP connection for the server address and TCP port 55799 (changeable).
+3. When the TCP connection is established, the client sends a request to the server.
+4. The server sends a response to the client.
+(a) When the server has returned an error response, it cuts off the TCP connection.
+(b) When a normal termination response is returned
+1) CONNECT request
+The bidirectional communication session of the projector commands starts, with the TCP connection
+maintained.
+2) Other request
+The TCP connection is cut off.
+Communication in the session mode is always started by the client (PC).
+Communication cannot be started by the server (projector).
+When the TCP connection cannot be established as the server is BUSY, etc., the server rejects the TCP connection.
+The cut of the TCP connection can be executed by either the client or server.
+The requests that can be used in the session mode are "CONNECT" and "PASSWORD".
+5.6.1 About bidirectional communication session
+The following rules have been set forth to detect the abnormal termination of the communication target or the cutoff of the
+communication path after a bidirectional communication session has started.
+● If a no-communication status continues for longer than 10 minutes (changeable) in the bidirectional communication 
+session, it is regarded as a communication cutoff, the TCP connection is cut off, and the bidirectional
+communication session is terminated.
+● To maintain the session, a null communication is made when half of the above time-out period has elapsed after the 
+last data is received or sent from the client to the server.
+In ESC/VP21, a null command (null line) is sent from the client to the server. In response to this, the server returns ':'.
+When the server does not return ':', the client judges that the server is BUSY and sends a null command again one
+minute later. When ':' is not returned after this has been repeated until the end of the time-out period, communication
+with the server is judged as cut off, the TCP connection is cut off, and the bidirectional communication session is
+terminated.
+
+===== PAGE 18 =====
+SEIKO EPSON CONFIDENTIAL
+18/59
+5.6.2 PASSWORD request/response
+A PASSWORD request/response confirms and changes the password.
+The request headers that can be used in the PASSWORD request are Password and New-Password.
+The response header is not used in the PASSWORD response.
+The following indicates an example of PASSWORD request/response communication.
+Request
+(Request to confirm the presence/absence of password setting)
+After the TCP connection is opened, the following datagram is sent.
+Byte Length Type Value Meaning
+10 STR "ESC/VP.net" Protocol identifier
+1 BYTE 0x10 Version identifier
+1 UCHAR 2 Type identifier: PASSWORD
+2 USHORT 0 (Reserved)
+1 BYTE 0x00 Status code: Always set 0x00 since it is a request.
+1 UCHAR 0 Number of headers: 0
+The server returns the status code 0x20 (OK) when the password has not been set, or the status code 0x41 (Unauthorized) when
+the password has been set.
+(Request to confirm the password)
+After the TCP connection is opened, the following datagram is sent.
+Byte Length Type Value Meaning
+10 STR "ESC/VP.net" Protocol identifier
+1 BYTE 0x10 Version identifier
+1 UCHAR 2 Type identifier: PASSWORD
+2 USHORT 0 (Reserved)
+1 BYTE 0x00 Status code: Always set 0x00 since it is a request.
+1 UCHAR 1 Number of headers: 1
+1 UCHAR 1 Header 1 identifier: Password
+1 UCHAR 1 Header 1 attribute value: Plain
+16 STR "AbCdEfGhIjk" Header 1 information: Password character string
+The server returns the status code 0x20 (OK) when the password is correct, or the status code 0x43 (Forbidden) when the
+password is wrong.
+(Request to change the password)
+After the TCP connection is opened, the following datagram is sent.
+Byte Length Type Value Meaning
+10 STR "ESC/VP.net" Protocol identifier
+1 BYTE 0x10 Version identifier
+1 UCHAR 2 Type identifier: PASSWORD
+2 USHORT 0 (Reserved)
+1 BYTE 0x00 Status code: Always set 0x00 since it is a request.
+1 UCHAR 2 Number of headers: 2
+1 UCHAR 1 Header 1 identifier: Password
+1 UCHAR 1 Header 1 attribute value: Plain
+16 STR "AbCdEfGhIjk" Header 1 information: Password character string
+1 UCHAR 2 Header 2 identifier: New-Password
+1 UCHAR 1 Header 2 attribute value: Plain
+16 STR "FooBar" Header 2 information: New password character
+string
+
+===== PAGE 19 =====
+SEIKO EPSON CONFIDENTIAL
+19/59
+(Request to erase the password setting)
+After the TCP connection is opened, the following datagram is sent.
+Byte Length Type Value Meaning
+10 STR "ESC/VP.net" Protocol identifier
+1 BYTE 0x10 Version identifier
+1 UCHAR 2 Type identifier: PASSWORD
+2 USHORT 0 (Reserved)
+1 BYTE 0x00 Status code: Always set 0x00 since it is a request.
+1 UCHAR 2 Number of headers: 2
+1 UCHAR 1 Header 1 identifier: Password
+1 UCHAR 1 Header 1 attribute value: Plain
+16 STR "AbCdEfGhIjk" Header 1 information: Password character string
+1 UCHAR 2 Header 2 identifier: New-Password
+1 UCHAR 0 Header 2 attribute value: NULL
+16 STR "" Header 2 information: Blank character string
+(Request to set a password to the server where no password is currently set)
+After the TCP connection is opened, the following datagram is sent.
+Byte Length Type Value Meaning
+10 STR "ESC/VP.net" Protocol identifier
+1 BYTE 0x10 Version identifier
+1 UCHAR 2 Type identifier: PASSWORD
+2 USHORT 0 (Reserved)
+1 BYTE 0x00 Status code: Always set 0x00 since it is a request.
+1 UCHAR 2 Number of headers: 2
+1 UCHAR 1 Header 1 identifier: Password
+1 UCHAR 0 Header 1 attribute value: NULL
+16 STR "" Header 1 information: Blank character string
+1 UCHAR 2 Header 2 identifier: New-Password
+1 UCHAR 1 Header 2 attribute value: Plain
+16 STR "AbCdEfGhIjk" Header 2 information: Newly set password
+Response
+(Response to a success in password confirmation or change)
+After the following datagram is sent, the TCP connection is cut off.
+Byte Length Type Value Meaning
+10 STR "ESC/VP.net" Protocol identifier
+1 BYTE 0x10 Version identifier
+1 UCHAR 2 Type identifier: PASSWORD
+2 USHORT 0 (Reserved)
+1 BYTE 0x20 Status code: OK
+1 UCHAR 0 Number of headers: 0
+(Response to a failure due to an authentication error)
+After the following datagram is sent, the TCP connection is cut off.
+Byte Length Type Value Meaning
+10 STR "ESC/VP.net" Protocol identifier
+1 BYTE 0x10 Version identifier
+1 UCHAR 2 Type identifier: PASSWORD
+2 USHORT 0 (Reserved)
+1 BYTE 0x43 Status code: Forbidden
+1 UCHAR 0 Number of headers: 0
+
+===== PAGE 20 =====
+SEIKO EPSON CONFIDENTIAL
+20/59
+5.6.3 CONNECT request/response
+A session of bidirectional communication with the projector is demanded.
+When the server cannot establish a new session, the error code 0x53 is returned.
+In a CONNECT request, the request header Password can be used.
+In a CONNECT response, the server information can be returned using the response header, but the response header is not used
+in the current installation.
+The following indicates an example of CONNECT request/response communication.
+Request
+(Request not to use the password)
+After the TCP connection is opened, the following datagram is sent.
+Byte Length Type Value Meaning
+10 STR "ESC/VP.net" Protocol identifier
+1 BYTE 0x10 Version identifier
+1 UCHAR 3 Type identifier: CONNECT
+2 USHORT 0 (Reserved)
+1 BYTE 0x00 Status code: Always set 0x00 since it is a request.
+1 UCHAR 0 Number of headers: 0
+(Request to use the password)
+After the TCP connection is opened, the following datagram is sent.
+Byte Length Type Value Meaning
+10 STR "ESC/VP.net" Protocol identifier
+1 BYTE 0x10 Version identifier
+1 UCHAR 3 Type identifier: CONNECT
+2 USHORT 0 (Reserved)
+1 BYTE 0x00 Status code: Always set 0x00 since it is a request.
+1 UCHAR 1 Number of headers: 1
+1 UCHAR 1 Header 1 identifier: Password
+1 UCHAR 1 Header 1 attribute value: Plain
+16 STR "AbCdEfGhIjk" Header 1 information: Password character string
+
+===== PAGE 21 =====
+SEIKO EPSON CONFIDENTIAL
+21/59
+Response
+(Response to a success in session start)
+After the following datagram is sent, the bidirectional session of ESC/VP21 starts with the TCP connection maintained.
+Byte Length Type Value Meaning
+10 STR "ESC/VP.net" Protocol identifier
+1 BYTE 0x10 Version identifier
+1 UCHAR 3 Type identifier: CONNECT
+2 USHORT 0 (Reserved)
+1 BYTE 0x20 Status code: OK
+1 UCHAR 0 Number of headers: 0
+After the bidirectional session has started, the ESC/VP21 commands are transferred directly since direct communication is
+made with the projector.
+The bidirectional session is continued until the TCP connection is cut off from either the server or client.
+(Response to a failure in connection due to a BUSY status)
+After the following datagram is sent, the TCP connection is closed.
+Byte Length Type Value Meaning
+10 STR "ESC/VP.net" Protocol identifier
+1 BYTE 0x10 Version identifier
+1 UCHAR 3 Type identifier: CONNECT
+2 USHORT 0 (Reserved)
+1 BYTE 0x53 Status code: Service Unavailable
+1 UCHAR 0 Number of headers: 0
+(Response to the necessity of a password)
+After the following datagram is sent, the TCP connection is closed.
+Byte Length Type Value Meaning
+10 STR "ESC/VP.net" Protocol identifier
+1 BYTE 0x10 Version identifier
+1 UCHAR 3 Type identifier: CONNECT
+2 USHORT 0 (Reserved)
+1 BYTE 0x41 Status code: Unauthorized
+1 UCHAR 0 Number of headers: 0
+When receiving this response, the client can retry a connection using the password.
+(Response to a wrong password)
+After the following datagram is sent, the TCP connection is closed.
+Byte Length Type Value Meaning
+10 STR "ESC/VP.net" Protocol identifier
+1 BYTE 0x10 Version identifier
+1 UCHAR 3 Type identifier: CONNECT
+2 USHORT 0 (Reserved)
+1 BYTE 0x43 Status code: Forbidden
+1 UCHAR 0 Number of headers: 0
+
+===== PAGE 22 =====
+SEIKO EPSON CONFIDENTIAL
+22/59
+5.7 Error Processing
+(Common error processing)
+Error Definition Processing Method
+Rquest data is illegal.
+● Protocol identifier is not "ESC/VP.net". 
+● Type identifier is outside the defined range. 
+● Status code is not 0x00. 
+● Sequence number (reserved area) is not 0. 
+● Header identifier is outside the defined range. 
+● Header attribute value is outside the defined range. 
+The server returns the error code 0x40 (Bad Request) in a response.
+After that, in the case of the session mode, the server cuts off the
+TCP connection and waits for the next request.
+Version identifier is not 0x10.
+The server returns the error code 0x55 (Protocol Version Not
+Supported) in a response. After that, in the case of the session
+mode, the server cuts off the TCP connection and waits for the next
+request.
+(Error processing specific to session-less mode)
+Error Definition Processing Method
+Type identifier is not 1 (HELLO). The server returns the error code 0x45 (Request not allowed) in aresponse.
+(Error processing specific to session mode)
+Error Definition Processing Method
+Type identifier is not 2 (PASSWORD) or 3
+(CONNECT).
+The server returns the error code 0x45 (Request not allowed) in a
+response.After that, the server cuts off the TCP connection and
+waits for the next request.
+(Error processing specific to HELLO request)
+Error Definition Processing Method
+In spite of the HELLO request, the request header is
+used. The server returns the error code 0x40 (Bad Request) in a response.
+(Error processing specific to PASSWORD request)
+Error Definition Processing Method
+In spite of the PASSWORD request, the header other than
+Password/New-Password is used.
+The password or new password includes any character that
+cannot be printed or that deviates from the US-ASCII code.
+(0-31 and 127 or more)
+Though the Password/New-Password header identifier is
+not NULL, the password is a blank character string.
+The server returns the error code 0x40 (Bad Request) in a
+response, cuts off the TCP connection, and waits for the next
+request.
+Though the password is set to the server, the password is
+not included in the request.
+The server returns the error code 0x41 (Unauthorized) in a
+response, cuts off the TCP connection, and waits for the next
+request.
+Though the password is not set to the server, the password
+is included in the request.
+The server ignores the password in the request. An error does not
+occur.
+The password set to the server differs from the password
+included in the request.
+The server returns the error code 0x43 (Forbidden) in a response,
+cuts off the TCP connection, and waits for the next request.
+The server cannot respond immediately since it is
+processing the other request, for example.
+The server returns the error code 0x53 (Service Unavailable) in a
+response, cuts off the TCP connection, and waits for the next
+request.
+
+===== PAGE 23 =====
+SEIKO EPSON CONFIDENTIAL
+23/59
+(Error processing specific to CONNECT request)
+Error Definition Processing Method
+Though the password is set to the server, the password
+is not included in the request.
+The server returns the error code 0x41 (Unauthorized) in a response,
+cuts off the TCP connection, and waits for the next request.
+Though the password is not set to the server, the
+password is included in the request.
+The server ignores the password in the request. An error does not
+occur.
+The password set to the server differs from the
+password included in the request.
+The server returns the error code 0x43 (Forbidden) in a response,
+cuts off the TCP connection, and waits for the next request.
+The server cannot respond immediately since it is
+processing the other request, for example.
+The server cannot start a new ESC/VP21 bidirectional
+session.
+The server returns the error code 0x53 (Service Unavailable) in a
+response, cuts off the TCP connection, and waits for the next request.
+5.8 Restrictions
+This protocol does not assume use beyond the firewall.
+It does not consider the security for connection to the Internet, either.
+
+===== PAGE 24 =====
+SEIKO EPSON CONFIDENTIAL
+24/59
+6.ESC/VP.net COMMAND SPECIFICATIONS
+The following commands are defined as the ESC/VP.net dedicated commands.
+Set SNMP trap destination address 1
+Command NWTRAPIP1 xxx.xxx.xxx.xxx (xxx indicates the IP address parameter)
+Parameter
+Specify the address with an ASCII character string, whose 3 significant digits are 0 to 255,
+and a delimiter '.'.
+The field of less than 3 digits need not be filled with 0.
+Specify 0.0.0.0 when setting the SNMP trap destination address 1 invalid.
+Function Set up the trap destination IP address 1 of SNMP in the projector main unit.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Setting example:NWTRAPIP1 163.152.67.1
+Get SNMP trap destination address 1
+Command NWTRAPIP1?
+Parameter Absence
+Function Return the trap destination IP address 1 of set SNMP.A return of 0.0.0.0 indicates that the SNMP trap destination address 1 is set invalid.
+Return code
+Return the trap destination IP address 1 set with the ASCII character string whose 3
+significant digits are 0 to 255.
+Return example:NWTRAPIP1?
+NWTRAPIP1=163.152.67.1
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Absence
+Set SNMP trap destination address 2
+Command NWTRAPIP2 xxx.xxx.xxx.xxx (xxx indicates the IP address parameter)
+Parameter
+Specify the address with an ASCII character string, whose 3 significant digits are 0 to 255,
+and a delimiter '.'.
+The field of less than 3 digits need not be filled with 0.
+Specify 0.0.0.0 when setting the SNMP trap destination address 2 invalid.
+Function Set up the trap destination IP address 2 of SNMP in the projector main unit.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Setting example:NWTRAPIP2 163.152.67.1
+
+===== PAGE 25 =====
+SEIKO EPSON CONFIDENTIAL
+25/59
+Get SNMP trap destination address 2
+Command NWTRAPIP2?
+Parameter Absence
+Function Return the trap destination IP address 2 of set SNMP.A return of 0.0.0.0 indicates that the SNMP trap destination address 2 is set invalid.
+Return code
+Return the trap destination IP address 2 set with the ASCII character string whose 3
+significant digits are 0 to 255.
+Return example:NWTRAPIP2?
+NWTRAPIP2=163.152.67.1
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Absence
+Set projector name
+Command NWPNAME xxxxxxxxxxxxxxx
+(xxx indicates the projector name character string)
+Parameter Specify an ASCII character string (alphanumeric characters) of up to 15 effective characters.Characters effective for projector name: Refer to "Character Restrictions".
+Function Set up the projector name (computer name) in the projector main unit.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Setting example:NWPNAME PROJ01
+Get projector name
+Command NWPNAME?
+Parameter Absence
+Function Return the set projector name (computer name).
+Return code
+Return the projector name (computer name) set with the ASCII character string
+(alphanumeric characters).
+Return example:NWPNAME?
+NWPNAME=PROJ01
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Absence
+
+===== PAGE 26 =====
+SEIKO EPSON CONFIDENTIAL
+26/59
+Set community name
+Command NWCNAME xxxxxxxxxxxxxxx(xxx indicates the community name character string)
+Parameter Specify an ASCII character string of up to 8 effective characters.Characters effective for community name: Refer to "Character Restrictions".
+Function Set up the SNMP community name in the projector main unit.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Setting example:NWCNAME ABCDEF
+Get community name
+Command NWCNAME?
+Parameter Absence
+Function Return the set SNMP community name.
+Return code
+Return the SNMP community name set with the ASCII character string (alphanumeric
+characters).
+Return example:NWCNAME?
+NWCNAME=ABCDEF
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Absence
+Get MAC address (wired LAN)
+Command NWMAC?
+Parameter Absence
+Function Return the network adaptor address of the network projector.
+Return code
+Return the MAC address with the ASCII character string of 12 characters (hexadecimal
+representation).
+Return example:NWMAC?
+NWMAC=0040B4123456
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Absence
+
+===== PAGE 27 =====
+SEIKO EPSON CONFIDENTIAL
+27/59
+Get MAC address (wireless LAN)
+Command NWMAC?
+Parameter Absence
+Function Return the network adaptor address of the network projector.
+Return code
+Return the MAC address with the ASCII character string of 12 characters (hexadecimal
+representation).
+Return example:NWMAC?
+NWMAC=0040B4123456
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Absence
+Set mail destination address 1
+Command NWSMTPTO1 x
+Parameter
+x: Mail destination address 1 sent by SMTP.
+The number of characters is up to 64.
+0 characters set no destination address.
+Refer to the "Character Restrictions" for the effective characters.
+Function Set the mail destination address 1 used by the mail send function.Set the send source mail address used by the mail send function.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination, or returned when data is received via external USB or
+RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Setting example 1: Example of setting epson@exc.co.jp as the destination address
+:NWSMTPTO1 epson@exc.co.jp
+:
+Setting example 2: Example of setting no destination address
+:NWSMTPTO1
+:
+
+===== PAGE 28 =====
+SEIKO EPSON CONFIDENTIAL
+28/59
+Get mail destination address 1
+Command NWSMTPTO1?
+Parameter Absence
+Function Return the mail destination address 1 used by the mail send function.Return the send source mail address used by the mail send function.
+Return code Return the mail destination address 1 of up to 64 characters.0 characters indicate that the mail destination address 1 (send source mail address) is not set.
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination, or returned when data is received via external USB or
+RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Response example:
+NWSMTPTO1?
+NWSMTPTO1=epson@ecx.co.jp
+:
+Set mail destination address 2
+Command NWSMTPTO2 x
+Parameter
+x: Mail destination address 2 sent by SMTP.
+The number of characters is up to 64.
+0 characters set no destination address.
+Refer to the "Character Restrictions" for the effective characters.
+Function Set the mail destination address 2 used by the mail send function.Set the send source mail address used by the mail send function.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination, or returned when data is received via external USB or
+RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Setting example 1: Example of setting epson@exc.co.jp as the destination address
+:NWSMTPTO2 epson@exc.co.jp
+:
+Setting example 2: Example of setting no destination address
+:NWSMTPTO2
+:
+
+===== PAGE 29 =====
+SEIKO EPSON CONFIDENTIAL
+29/59
+Get mail destination address 2
+Command NWSMTPTO2?
+Parameter Absence
+Function Return the mail destination address 2 used by the mail send function.Return the send source mail address used by the mail send function.
+Return code Return the mail destination address 2 of up to 64 characters.0 characters indicate that the mail destination address 2 is not set.
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination, or returned when data is received via external USB or
+RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Response example:
+:NWSMTPTO2?
+NWSMTPTO2=epson@exc.co.jp
+:
+Set mail destination address 3
+Command NWSMTPTO3 x
+Parameter
+x: Mail destination address 3 sent by SMTP.
+The number of characters is up to 64.
+0 characters set no destination address.
+Refer to the "Character Restrictions" for the effective characters.
+Function Set the mail destination address 3 used by the mail send function.Set the send source mail address used by the mail send function.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination, or returned when data is received via external USB or
+RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Setting example 1: Example of setting epson@exc.co.jp as the destination address
+:NWSMTPTO3 epson@exc.co.jp
+:
+Setting example 2: Example of setting no destination address
+:NWSMTPTO3
+:
+
+===== PAGE 30 =====
+SEIKO EPSON CONFIDENTIAL
+30/59
+Get mail destination address 3
+Command NWSMTPTO3?
+Parameter Absence
+Function Return the mail destination address 3 used by the mail send function.Return the send source mail address used by the mail send function.
+Return code Return the mail destination address 3 of up to 64 characters.0 characters indicate that the mail destination address 3 is not set.
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination, or returned when data is received via external USB or
+RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Response example:
+:NWSMTPTO3?
+NWSMTPTO3=epson@exc.co.jp
+:
+Set SMTP server IP address
+Command NWSMTPSRV xxx.xxx.xxx.xxx
+Parameter
+Specify the address with an ASCII character string, whose 3 significant digits are 0 to 255,
+and a delimiter '.'.
+The field of less than 3 digits need not be filled with 0.
+Function Set the SMTP server IP address.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination, or returned when data is received via USB or RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Setting example:
+:NWSMTPSRV 163.141.12.3
+:
+Get SMTP server IP address
+Command NWSMTPSRV?
+Parameter Absence
+Function Return the set SMTP server IP address.
+Return code Return the SMTP server IP address set with the ASCII character string, whose 3 significantdigits are 0 to 255, and the delimiter ':'.
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination, or returned when data is received via USB or RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Response example
+:NWSMTPSRV?
+NWSMTPSRV=163.141.12.3
+:
+
+===== PAGE 31 =====
+SEIKO EPSON CONFIDENTIAL
+31/59
+Set SMTP port number
+Command NWSMTPPORT xxxxx
+Parameter ASCII character string whose 5 significant digits are 0 to 65535.
+Function Set the SMTP port number.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abno rmal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination, or returned when data is received via USB or RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Setting example:
+:NWSMTPPORT 25
+:
+Get SMTP port number
+Command NWSMTPPORT?
+Parameter Absence
+Function Return the set SMTP port number.
+Return code Return the SMTP port number set with the ASCII character string whose 5 significant digitsare 0 to 65535.
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination, or returned when data is received via USB or RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Response example
+:NWSMTPPORT?
+NWSMTPTO=25
+:
+
+===== PAGE 32 =====
+SEIKO EPSON CONFIDENTIAL
+32/59
+Set notification event 1
+Command NWSMTPEVT1 xxxx yyyy
+Parameter
+xxxx: ASCII character string of 0000 to FFFF. (Hexadecimal representation)
+Correspond to <Parameter 1> of the return code of IMEVENT?.
+The event of 1 setting is sent as mail when it changes.
+The event of 0 setting is not sent as mail if it changes.
+yyyy: ASCII character string of 0000 to FFFF. (Hexadecimal representation)
+Correspond to <Parameter 2> of the return code of IMEVENT?.
+The event of 1 setting is sent as mail when it changes.
+The event of 0 setting is not sent as mail if it changes.
+Function
+Specify the event to be sent to the mail destination address 1 among the events to be
+returned by PJ using IMEVENT?.
+When 0000 is set to both xxxx and yyyy, no mail is sent.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination, or returned when data is received via USB or RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Setting example 1: Mail is sent if no signal and lamp burnout occurs.
+:NWSMTPEVT1 0002 0004
+:
+Setting example 2: Mail is not sent if any event occurs.
+:NWSMTPEVT1 0000 0000
+Get notification event 1
+Command NWSMTPEVT1?
+Parameter Absence
+Function Return the setting of the notification event 1.
+Return code Return the parameter set using NWSMTPEVT1.
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination, or returned when data is received via USB or RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Response example:
+:NWSMTPEVT1?
+NWSMTPEVT1=0002 0004
+:
+
+===== PAGE 33 =====
+SEIKO EPSON CONFIDENTIAL
+33/59
+Set notification event 2
+Command NWSMTPEVT2 xxxx yyyy
+Parameter
+xxxx: ASCII character string of 0000 to FFFF. (Hexadecimal representation)
+Correspond to <Parameter 1> of the return code of IMEVENT?.
+The event of 1 setting is sent as mail when it changes.
+The event of 0 setting is not sent as mail if it changes.
+yyyy: ASCII character string of 0000 to FFFF. (Hexadecimal representation)
+Correspond to <Parameter 2> of the return code of IMEVENT?.
+The event of 1 setting is sent as mail when it changes.
+The event of 0 setting is not sent as mail if it changes.
+Function
+Specify the event to be sent to the mail destination address 2 among the events to be
+returned by PJ using IMEVENT?.
+When 0000 is set to both xxxx and yyyy, no mail is sent.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination, or returned when data is received via USB or RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Setting example 1: Mail is sent if no signal and lamp burnout occurs.
+:NWSMTPEVT2 0002 0004
+:
+Setting example 2: Mail is not sent if any event occurs.
+:NWSMTPEVT2 0000 0000
+Get notification event 2
+Command NWSMTPEVT2?
+Parameter Absence
+Function Return the setting of the notification event 2.
+Return code Return the parameter set using NWSMTPEVT2.
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination, or returned when data is received via USB or RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Response example:
+:NWSMTPEVT2?
+NWSMTPEVT2=0002 0004
+:
+
+===== PAGE 34 =====
+SEIKO EPSON CONFIDENTIAL
+34/59
+Set notification event 3
+Command NWSMTPEVT3 xxxx yyyy
+Parameter
+xxxx: ASCII character string of 0000 to FFFF. (Hexadecimal representation)
+Correspond to <Parameter 1> of the return code of IMEVENT?.
+The event of 1 setting is sent as mail when it changes.
+The event of 0 setting is not sent as mail if it changes.
+yyyy: ASCII character string of 0000 to FFFF. (Hexadecimal representation)
+Correspond to <Parameter 2> of the return code of IMEVENT?.
+The event of 1 setting is sent as mail when it changes.
+The event of 0 setting is not sent as mail if it changes.
+Function
+Specify the event to be sent to the mail destination address 3 among the events to be
+returned by PJ using IMEVENT?.
+When 0000 is set to both xxxx and yyyy, no mail is sent.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination, or returned when data is received via USB or RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Setting example 1: Mail is sent if no signal and lamp burnout occurs.
+:NWSMTPEVT3 0002 0004
+:
+Setting example 2: Mail is not sent if any event occurs.
+:NWSMTPEVT3 0000 0000
+Get notification event 3
+Command NWSMTPEVT3?
+Parameter Absence
+Function Return the setting of the notification event 3.
+Return code Return the parameter set using NWSMTPEVT3.
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination, or returned when data is received via USB or RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Response example:
+:NWSMTPEVT3?
+NWSMTPEVT3=0002 0004
+:
+
+===== PAGE 35 =====
+SEIKO EPSON CONFIDENTIAL
+35/59
+Set mail notification function ON/OFF
+Command NWSMTPACT xxx (xxx indicates the parameter)
+Parameter Make the mail notification function valid: ONMake the mail notification function invalid: OFF
+Function
+Set whether the mail send function is valid or invalid.
+Change the mail notification function-related settings after making the mail notification
+function invalid with this command. (The mail notification function-related settings indicate
+the following. Mail destination address 1 to 3, SMTP server IP address, SMTP port number,
+notification event 1 to 3).
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Setting example 1: Make the SMTP function valid.
+:NWSMTPACT ON
+:
+Get mail notification function ON/OFF
+Command NWSMTPACT?
+Parameter Absence
+Function Return the ON/OFF setting of the mail notification function.
+Return code Mail notification function is valid: ONMail notification function is invalid: OFF
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination, or returned when data is received via USB or RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Response example:
+:NWSMTPACT?
+NWSMTPACT=ON
+:
+
+===== PAGE 36 =====
+SEIKO EPSON CONFIDENTIAL
+36/59
+Test mail function
+Command NWSMTPTEST
+Parameter Absence
+Function
+Send the mail of the following contents. To make the setting for sending mail, make the
+setting used to send mail with the mail send function.
+Subject:TEST MAIL
+Text:
+Message Line feed code
+Line 1 Name:<Projector Name> <CR><LF>
+Line 2 IP:<www.xxx.yyy.zzz> <CR><LF>
+Line 3 TEST MAIL <CR><LF>
+For details of the text, refer to the mail notification function request specification.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Setting example 1:
+:NWSMTPTEST
+:
+
+===== PAGE 37 =====
+SEIKO EPSON CONFIDENTIAL
+37/59
+Set IP address, sub-net mask, default gateway (wired LAN)
+Command NWCNF ww xxx.xxx.xxx.xxx yyy.yyy.yyy.yyy zzz.zzz.zzz.zzz
+Parameter
+ww=DHCP ON/OFF
+xxx.xxx.xxx.xxx=IP address
+yyy.yyy.yyy.yyy=Net mask
+zzz.zzz.zzz.zzz=Default gateway
+Specify the address with an ASCII character string, whose 3 significant digits are 0 to 255, and a
+delimiter '.'.
+The field of less than 3 digits need not be filled with 0.
+Function
+(1) Set the DHCP, IP address, sub-net mask and default gateway.
+(2) When DHCP is set to ON, the projector ignores the other parameters and “0.0.0.0 (IP
+address, sub-net mask and default gateway)” is sent from devices to the projector as
+parameter.
+(3) When DHCP is set to OFF, the other parameters are set.
+(4) The status is sent before the connection with the projector is cut off.
+(5) The parameter check of NWCNF performed by the network projector is divided into two
+steps.
+The check in the first step is as follows.
+· The check is made with the connection of the PC and projector established.
+· ':' is returned when the result of this check is OK, or 'ERR' is returned when the result is
+NG.
+[Check]
+The parameter is checked as a mere character string.
+Example) Does the numerical part have only a value? Is the address value 255 or less?
+Is the DHCP setting either ON or OFF?, etc.
+The check in the second step is as follows.
+· This check is made with the connection of the PC and projector cut off.
+Reason: The EMP-7800/8300 judges whether the value set to ENCORE is appropriate or
+not. When the value is set, the connection must be cut off once because of the ENCORE
+specifications.
+· In this check, whether the result is OK or NG is not sent to the PC.
+Reason: Since the connection is cut off, the EMP-7800/8300 cannot send the check
+result to the PC.
+Remarks: The PC must search for the projector using the HELLP request of the
+ESC/VP.net protocol.
+[Check]
+The validity of the network setting is judged.For validity, the function that ENCORE
+uses to return the Error status is used. When any of the following conditions is
+satisfied, the Error status is returned.
+The result is NG when the Error status is returned, or OK if it is not returned.
+Error condition 1: [IP address]
+· The value in the first byte of the IP address is 127 or 224 or more.
+· All bits in the network part of the IP address are 0.
+· All bits in the host part of the IP address are 0 or 1.
+Error condition 2: [Sub-net mask]
+· All bits of the sub-net mask are 1.
+· The value in the 8 most significant bits of the sub-net mask is other than 0 or 255.
+Error condition 3: [Default GW]
+· The network part of the default GW does not match that of the IP address.
+· All bits in the host part of the default GW are 0 or 1.
+· The default GW matches the IP address.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment cannot
+be made with the input value, or the command termination is other than a normal
+
+===== PAGE 38 =====
+SEIKO EPSON CONFIDENTIAL
+38/59
+termination, or returned when data is received via USB or RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+:NWCNF OFF 163.141.32.1 255.255.255.0 163.141.32.254
+:NWCNF ON 0.0.0.0 0.0.0.0 0.0.0.0
+:
+Get IP address, sub-net mask, default gateway (wired LAN)
+Command NWCNF?
+Parameter Absence
+Function Return the set DHCP ON/OFF, IP address, sub-net mask and default gateway.
+Return code Return the IP address, sub-net mask and default gateway set with the ASCII character string,whose 3 significant digits are 0 to 255, and the delimiter '.'.
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination, or returned when data is received via USB or RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Regardless of whether DHCP is ON or OFF, the values of the set IP address, sub-net and
+default gateway are returned.
+Response example
+:NWCNF?
+NWCNF=OFF 163.141.147.108 255.255.255.0 163.141.147.254
+:
+Set WINS address (wired LAN)
+Command NWWINS yyy.yyy.yyy.yyy zzz.zzz.zzz.zzz
+Parameter
+Specify the address with an ASCII character string, whose 3 significant digits are 0 to 255,
+and a delimiter '.'. One parameter may be set if the address is set to only WINS1.
+The field of less than 3 digits need not be filled with 0.
+yyy.yyy.yyy.yyy=WINS1 address
+zzz.zzz.zzz.zzz=WINS2 address
+Function Set up the WINS server address in the projector main unit.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, DHCP is ON, or the command termination is
+other than a normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Setting example:NWWINS 163.152.67.1
+This command can be set only when DHCP is OFF and cannot be set when DHCP is OFF.
+(ERR)
+
+===== PAGE 39 =====
+SEIKO EPSON CONFIDENTIAL
+39/59
+Get WINS address (wired LAN)
+Command NWWINS?
+Parameter Absence
+Function Return the set WINS address.
+Return code
+Return the WINS address set with the 3-digit ASCII character string of 0 to 255.
+Return example:NWWINS?
+NWWINS=163.152.67.1 133.159.48.17
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Regardless of whether DHCP is ON or OFF, the setting (value gotten from the server whenDHCP is ON) is returned. When there is only one address, only its value is returned.
+Set DNS address (wired LAN)
+Command NWDNS yyy.yyy.yyy.yyy zzz.zzz.zzz.zzz
+Parameter
+Specify the address with an ASCII character string, whose 3 significant digits are 0 to 255,
+and a delimiter '.'.One parameter may be set if the address is set to only DNS1.
+The field of less than 3 digits need not be filled with 0.
+yyy.yyy.yyy.yyy=DNS1 address
+zzz.zzz.zzz.zzz=DNS2 address
+Function Set up the DNS server address in the projector main unit.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, DHCP is ON, or the command termination is
+other than a normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Setting example:NWDNS 163.152.67.1
+This command can be set only when DHCP is OFF and cannot be set when DHCP is OFF.
+(ERR)
+Get DNS address (wired LAN)
+Command NWDNS?
+Parameter Absence
+Function Return the set DNS address.
+Return code
+Return the DNS address set with the 3-digit ASCII character string of 0 to 255.
+Return example:NWDNS?
+NWDNS=163.152.67.1 133.159.48.17
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Regardless of whether DHCP is ON or OFF, the setting (value gotten from the server whenDHCP is ON) is returned.When there is only one address, only its value is returned.
+
+===== PAGE 40 =====
+SEIKO EPSON CONFIDENTIAL
+40/59
+Set IP address, sub-net mask, default gateway (wireless LAN)
+Command NWWLCNF ww xxx.xxx.xxx.xxx yyy.yyy.yyy.yyy zzz.zzz.zzz.zzz t uuu vvvv
+Parameter
+ww=DHCP ON/OFF
+xxx.xxx.xxx.xxx=IP address
+yyy.yyy.yyy.yyy=Net mask
+zzz.zzz.zzz.zzz=Default gateway
+Specify the address with an ASCII character string, whose 3 significant digits are 0 to 255,
+and a delimiter '.'.
+The field of less than 3 digits need not be filled with 0.
+t = ESSID, WEP, Adhoc flag (1 byte) *
+u = ESSID (32 characters)
+v = WEP key {hexadecimal 26 bytes (13 characters)}
+In the flag, whether the ESSID is specified or not, whether the WEP key is valid or invalid,
+and whether Adhoc is ON or OFF can be specified as indicated below.
+Value Specification
+0 ESSID not specified, WEP key invalid, Adhoc OFF
+1 ESSID not specified, WEP key invalid, Adhoc ON #1
+2 ESSID not specified, WEP key valid, Adhoc OFF
+3 ESSID not specified, WEP key valid, Adhoc ON #1
+4 ESSID specified, WEP key invalid, Adhoc OFF #2
+5 ESSID specified, WEP key invalid, Adhoc ON #3
+6 ESSID specified, WEP key valid, Adhoc OFF #2
+7 ESSID specified, WEP key valid, Adhoc ON #3
+When the ESSID is not specified, set ANY to the system on the network projector side.
+*WHEN THERE IS NO ESSID, THE PARAMETER “U” MUST NOT BE SET.
+#1 When the projector type is C or E, the specification is the same as that of “Channel ad
+hoc”.
+#2 When the projector type is C or E, the specification is the same as that of “Infrastructure
+mode”.
+#3 When the projector type is C or E, the specification is the same as that of “ESSID ad
+hoc”.
+*Refer to the "Character Restrictions" for the effective characters.
+Function Set the DHCP, IP address, sub-net mask, default gateway, ESSID, WEP key and Adhoc.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination, or returned when data is received via USB or RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+When DHCP is ON, the values of the other three parameters are ignored.
+A parameter error includes the case where the matching and validity of the settings are lost.
+Setting example:NWWLCNF OFF 163.141.12.1 163.141.12.254 255.255.255.0 7 EPSON
+FFFF
+Refer to NWCNF for the restrictions on the IP, sub-net and gateway values.
+When the ESSID, WEP, Adhoc flag is specified to make the ESSID absent and the WEP key
+invalid, the two subsequent parameters can be omitted.
+
+===== PAGE 41 =====
+SEIKO EPSON CONFIDENTIAL
+41/59
+Get IP address, sub-net mask, default gateway (wireless LAN)
+Command NWWLCNF?
+Parameter Absence
+Function Return the set DHCP ON/OFF, IP address, sub-net mask and default gateway, ESSID, WEPkey and Adhoc value.
+Return code
+Return the DHC ON/OFF, the IP address, sub-net mask and default gateway set with the
+ASCII character string, whose 3 significant digits are 0 to 255, and the delimiter '.', the
+ESSID, WEP and Adhoc flag value, and the ESSID value of max.32 bytes and the WEP key
+of max.26 bytes.
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination, or returned when data is received via USB or RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Regardless of whether DHCP is ON or OFF, the values of the set IP address, sub-net and
+default gateway are returned. When there is no ESSID and the WEP key is invalid, these
+values are not returned.
+Response example
+:NWWLCNF?
+NWWLCNF=OFF 163.141.147.108 255.255.255.0 163.141.147.254 0
+:
+Set WINS address (wireless LAN)
+Command NWWLWINS yyy.yyy.yyy.yyy zzz.zzz.zzz.zzz
+Parameter
+Specify the address with an ASCII character string, whose 3 significant digits are 0 to 255,
+and a delimiter '.'. One parameter may be set if the address is set to only WINS1.
+The field of less than 3 digits need not be filled with 0.
+yyy.yyy.yyy.yyy=WINS1 address
+zzz.zzz.zzz.zzz=WINS2 address
+Function Set up the WINS server address in the projector main unit.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, DHCP is ON, or the command termination is
+other than a normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Setting example:NWWLWINS 163.152.67.1
+This command can be set only when DHCP is OFF and cannot be set when DHCP is OFF.
+(ERR)
+
+===== PAGE 42 =====
+SEIKO EPSON CONFIDENTIAL
+42/59
+Get WINS address (wireless LAN)
+Command NWWLWINS?
+Parameter Absence
+Function Return the set WINS address.
+Return code
+Return the WINS address set with the 3-digit ASCII character string of 0 to 255.
+Return example:NWWLWINS?
+NWWLWINS=163.152.67.1 133.159.48.17
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Regardless of whether DHCP is ON or OFF, the setting (value gotten from the server whenDHCP is ON) is returned.When there is only one address, only its value is returned.
+Set DNS address (wireless LAN)
+Command NWWLDNS yyy.yyy.yyy.yyy zzz.zzz.zzz.zzz
+Parameter
+Specify the address with an ASCII character string, whose 3 significant digits are 0 to 255,
+and a delimiter '.'. One parameter may be set if the address is set to only DNS1.
+The field of less than 3 digits need not be filled with 0.
+yyy.yyy.yyy.yyy=DNS1 address
+zzz.zzz.zzz.zzz=DNS2 address
+Function Set up the DNS server address in the projector main unit.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, DHCP is ON, or the command termination is
+other than a normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Setting example:NWWLDNS 163.152.67.1
+This command can be set only when DHCP is OFF and cannot be set when DHCP is OFF.
+(ERR)
+Get DNS address (wireless LAN)
+Command NWWLDNS?
+Parameter Absence
+Function Return the set DNS address.
+Return code
+Return the DNS address set with the 3-digit ASCII character string of 0 to 255.
+Return example:NWWLDNS?
+NWWLDNS=163.152.67.1 133.159.48.17
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Regardless of whether DHCP is ON or OFF, the setting (value gotten from the server whenDHCP is ON) is returned. When there is only one address, only its value is returned.
+
+===== PAGE 43 =====
+SEIKO EPSON CONFIDENTIAL
+43/59
+Get communication network IF type
+Command NWIF?
+Parameter Absence
+Function Return the type of the communicating network I/F.
+Return code
+Hexadecimal 1 byte
+0x00 Wired LAN
+0x01 802.11b
+0x02 802.11a
+0x03 802.11g
+0x04~0xFF Reserved
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination, or returned when data is received via USB or RS-232C.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+This command gets the network projector side network I/F that is making communication
+using the ESCVP.net protocol. When both the wired and 802.11b interfaces are installed,
+0x01 is returned if the I/F that is actually communicating is 802.11b.
+Example:
+:NWIF?
+NWIF=01
+:
+Set DNS suffix (wired LAN)
+Command NWDNSDMNxxxxxxxxx
+Parameter xxx = DNS suffix (ASCII 96 bytes)
+Function Set up the DNS suffix (domain suffix) in the projector main unit.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, DHCP is ON, or the command termination is
+other than a normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Setting example:NWDNSDMN easymp.co.jp
+This command can be set only when DHCP is OFF and cannot be set when DHCP is OFF.
+(ERR)
+
+===== PAGE 44 =====
+SEIKO EPSON CONFIDENTIAL
+44/59
+Get DNS suffix (wired LAN)
+Command NWDNSDMN?
+Parameter Absence
+Function Return the set DNS suffix.
+Return code
+Return the DNS suffix set with the ASCII character string of 96 bytes.
+Return example:NWDNSDMN?
+NWDNS=easymp.co.jp
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Regardless of whether DHCP is ON or OFF, the setting (value gotten from the server whenDHCP is ON) is returned.
+Set DNS suffix (wireless LAN)
+Command NWWLDNSDMN xxxxxxxxx
+Parameter xxx = DNS suffix (ASCII 96 bytes)
+Function Set up the DNS suffix (domain suffix) in the projector main unit.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, DHCP is ON, or the command termination is
+other than a normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Setting example:NWWLDNSDMN easymp.co.jp
+This command can be set only when DHCP is OFF and cannot be set when DHCP is OFF.
+(ERR)
+Get DNS suffix (wireless LAN)
+Command NWWLDNSDMN?
+Parameter Absence
+Function Return the set DNS suffix.
+Return code
+Return the DNS suffix set with the ASCII character string of 96 bytes.
+Return example:NWWLDNSDMN?
+NWWLDNS=easymp.co.jp
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Regardless of whether DHCP is ON or OFF, the setting (value gotten from the server whenDHCP is ON) is returned.
+
+===== PAGE 45 =====
+SEIKO EPSON CONFIDENTIAL
+45/59
+Set IP address, sub-net mask, default gateway（for 802.1x）
+Command NWWLCNFS <F1> <F2> <F3><F4> <F5> <F6>
+Parameter
+<F1> Whether DHCP is ON or OFF can be specified.
+<F2>: Specify the IP address of wireless LAN. Specify the address with an ASCII character
+string, whose 3 significant digits are 0 to 255, and a delimiter '.'.
+The field of less than 3 digits need not be filled with 0.
+<F3>: Specify the sub-net mask of wireless LAN. Specify the address with an ASCII
+character string, whose 3 significant digits are 0 to 255, and a delimiter '.'.
+The field of less than 3 digits need not be filled with 0.
+<F4>: Specify the default gateway of wireless LAN. Specify the address with an ASCII
+character string, whose 3 significant digits are 0 to 255, and a delimiter '.'.
+The field of less than 3 digits need not be filled with 0.
+<F5>:Option of wireless LAN.（2 characters. Hexadecimal representation and 1 byte but the
+command consists of 2 characters.）When the hexadecimal representation is converted to
+binary notation, each bit represents the following.
+Bit 0: Ad-Hoc mode
+Bit 1: ESSID valid/invalid flag On: Valid
+Bit 2-15: Reserved
+<F6>: Specify the ESSID. Max. 32 characters. Valid only when Bit 1 of <5> is set.
+When DHCP is set to ON, the projector ignores the parameters of IP, sub-net mask and
+default gateway and then devices send “0.0.0.0” to the projector.
+*Refer to the "Character Restrictions" for the effective characters.
+Function Set up the wireless LAN parameter in the projector main unit.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Setting example: NWWLCNFS ON 0.0.0.0 0.0.0.0 0.0.0.0 03 ESSID*Valid only when IM-Type is 22 or 23.
+Get IP address, sub-net mask, default gateway（for 802.1x）
+Command NWWLCNFS?
+Parameter
+Function Return the wireless LAN parameter.
+Return code NWWLCNFS?NWWLCNFS = ON 163.152.67.1.255.255.255.0 163.152.67.254 03 ESSID
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks *Valid only when IM-Type is 22 or 23.
+
+===== PAGE 46 =====
+SEIKO EPSON CONFIDENTIAL
+46/59
+Set the second ESSID
+Command NWESSID2 <F1>
+Parameter <F1>: Specify the second ESSID.Refer to the "Character Restrictions" for the effective characters.
+Function Set up the second ESSID in the projector main unit.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Setting example: NWESSID2 ESSID2*Valid only when IM-Type is 22 or 23.
+Get the second ESSID
+Command NWESSID2?
+Parameter
+Function Return the second ESSID.
+Return code NWESSID2?NWESSID2＝ESSID2
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks *Valid only when IM-Type is 22 or 23.
+Set the third ESSID
+Command NWESSID3 <F1>
+Parameter <F1>: Specify the third ESSID.Refer to the "Character Restrictions" for the effective characters.
+Function Set up the third ESSID in the projector main unit.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Setting example: NWESSID3 ESSID3*Valid only when IM-Type is 22 or 23.
+
+===== PAGE 47 =====
+SEIKO EPSON CONFIDENTIAL
+47/59
+Get the third ESSID
+Command NWESSID3?
+Parameter
+Function Return the third ESSID.
+Return code NWESSID3?NWESSID3＝ESSID3
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks *Valid only when IM-Type is 22 or 23.
+Set security system
+Command NWWLSEC wxyyzz
+Parameter
+w = Specify the encryption algorithm.(One character, Hexadecimal notation and 4 bit)
+0 : Absence
+1 : WEP
+2 : TKIP
+3 : CKIP
+4 : AES
+5-F : Reserved
+x = Specify the key length of the encryption algorithm.(One character, Hexadecimal notation
+and 4 bit)
+0 : Absence
+1 : 64 bit
+2 : 128 bit
+3 : 152 bit
+4-F : Reserved
+yy = Specify the key management system.(Two characters. Notation is hexadecimal number
+system and the key length is 1 byte. However since the parameter is treated as a character, the
+parameter consists of two characters.)
+00: Absence
+01 : Shared key authentication
+02 : TTLS
+03 : TLS
+04 : LEAP
+05 : MD5
+06 : PEAP
+07-FF: Reserved
+zz = Specify the key management system.(Two characters. Notation is hexadecimal number
+system and the key length is 1 byte. However since the parameter is treated as a character, the
+parameter consists of two characters.)
+00 : Absence
+01 : 802.1x (RADIUS) authentication
+02 : WPA
+03 : WPA2
+04-FF : Reserved
+Function Set up wireless LAN security system in the projector main unit.
+Return code Absence
+
+===== PAGE 48 =====
+SEIKO EPSON CONFIDENTIAL
+48/59
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a normal
+termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Setting example: When WEP is 64 Bit,
+NWSEC 110000
+*Valid only when IM-Type is 22 or 23.
+Get security system
+Command NWWLSEC?
+Parameter
+Function Return the wireless LAN security system.
+Return code
+When WEP is 64 Bit,
+NWSEC?
+NWSEC ＝110000
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a normal
+termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks *Valid only when IM-Type is 22 or 23.
+Set WEP Key ID
+Command NWWEPID <F1>
+Parameter
+<F1>: Specify key ID. 1 byte.
+1: Specify “1” as Key ID.
+2: Specify “2” as Key ID.
+3: Specify “3” as Key ID.
+4: Specify “4” as Key ID.
+5-F: Reserved
+Function Set up the WEP ID information in the projector main unit.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Presence INC Absence DEC Absence
+Remarks Setting example: NWWEPID 1*Valid only when IM-Type is 22 or 23.
+
+===== PAGE 49 =====
+SEIKO EPSON CONFIDENTIAL
+49/59
+Get WEP Key ID
+Command NWWEPID?
+Parameter Absence
+Function Return the WEPID information.
+Return code NWWEPID?NWWEPID=1
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks *Valid only when IM-Type is 22 or 23.
+Set WEP encryption key 1
+Command NWWEP1 <F1>
+Parameter
+<F1> : WEP key
+* The length depends on parameter “x” of NWWLSEC.
+10 bytes or 26 bytes. Notation is hexadecimal number system.
+Function Set up key WEP encryption key 1 on the projector main unit.
+Return code None
+Status
+‘ : ’ Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Presence INC Absence DEC Absence
+Remarks Setting example (10 bytes) : NWWEP1 4141414141
+*Valid only when IM-Type is 22 or 23.
+Get WEP encryption key 1
+Command NWWEP1?
+Parameter None
+Function Return WEP encryption key 1 from the projector main unit.
+Return code
+NWWEP1?
+NWWEP1= 4141414141
+Status
+‘ : ’ Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks *Valid only when IM-Type is 22 or 23.
+
+===== PAGE 50 =====
+SEIKO EPSON CONFIDENTIAL
+50/59
+Set WEP encryption key 2
+Command NWWEP2 <F1>
+Parameter
+<F1> : WEP key
+* The length depends on parameter “x” of NWWLSEC.
+10 bytes or 26 bytes. Notation is hexadecimal number system.
+Function Set up WEP encryption key 2 on the projector main unit.
+Return code None
+Status
+‘ : ’ Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Presence INC Absence DEC Absence
+Remarks Setting example (10 bytes) : NWWEP2 4141414141
+*Valid only when IM-Type is 22 or 23.
+Get WEP encryption key 2
+Command NWWEP2?
+Parameter None
+Function Return WEP encryption key 2 from the projector main unit.
+Return code NWWEP2?
+NWWEP2 = 4141414141
+Status
+‘ : ’ Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks *Valid only when IM-Type is 22 or 23.
+
+===== PAGE 51 =====
+SEIKO EPSON CONFIDENTIAL
+51/59
+Set WEP encryption key 3
+Command NWWEP3 <F1>
+Parameter
+<F1> : WEP key
+* The length depends on parameter “x” of NWWLSEC.
+10 bytes or 26 bytes. Notation is hexadecimal number system.
+Function Set up WEP encryption key 3 on the projector main unit.
+Return code None
+Status
+‘ : ’ Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Presence INC Absence DEC Absence
+Remarks Setting example (10 bytes) : NWWEP3 4141414141
+*Valid only when IM-Type is 22 or 23.
+Get WEP encryption key 3
+Command NWWEP3?
+Parameter None
+Function Return WEP encryption key 3 from the projector main unit.
+Return code NWWEP3?
+NWWEP3 =4141414141
+Status
+‘ : ’ Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks *Valid only when IM-Type is 22 or 23.
+
+===== PAGE 52 =====
+SEIKO EPSON CONFIDENTIAL
+52/59
+Set WEP encryption key 4
+Command NWWEP4 <F1>
+Parameter
+<F1> : WEP key
+* The length depends on parameter “x” of NWWLSEC.
+10 bytes or 26 bytes. Notation is hexadecimal number system.
+Function Set up WEP encryption key 4 on the projector main unit.
+Return code None
+Status
+‘ : ’ Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Presence INC Absence DEC Absence
+Remarks Setting example (10 bytes) : NWWEP4 4141414141
+*Valid only when IM-Type is 22 or 23.
+Get WEP encryption key 4
+Command NWWEP4?
+Parameter None
+Function Return WEP encryption key 4 from the projector main unit.
+Return code NWWEP4?
+NWWEP4 =4141414141
+Status
+‘ : ’ Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks *Valid only when IM-Type is 22 or 23.
+
+===== PAGE 53 =====
+SEIKO EPSON CONFIDENTIAL
+53/59
+Set prior interface
+Command NWPRIMIF x
+Parameter
+X = Specify prior network interface. 1 byte.
+0: Give priority to Wired LAN interface.
+1: Give priority to Wireless LAN interface.
+Function Set up prior interface in the projector main body.Specify which interface should be connected to mail server or SNMP.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Setting example : NWPRIMIF 1*Valid only when IM-Type is 22 or 23.
+Get prior interface
+Command NWPRIMIF?
+Parameter
+Function Return the prior interface.
+Return code NWPRIMIF?NWPRIMIF = 1
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks *Valid only when IM-Type is 22 or 23.
+Set LEAP user name
+Command NWSECUSER x
+Parameter x = User name for LEAP
+Function Set the user name for LEAP.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Setting example : NWSECUSER 1*Valid only when IM-Type is 22 or 23.
+
+===== PAGE 54 =====
+SEIKO EPSON CONFIDENTIAL
+54/59
+Get LEAP user name
+Command NWSECUSER?
+Parameter
+Function Return the user name for LEAP.
+Return code NWSECUSER?NWSECUSER＝easympuser
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks *Valid only when IM-Type is 22 or 23.
+Set LEAP passward
+Command NWSECPASSWD x
+Parameter x = Password for LEAP.
+Function Set the password for LEAP.
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Setting example: NWSECPASSWD easymppassword*Valid only when IM-Type is 22 or 23.
+Get LEAP password
+Command NWSECPASSWD?
+Parameter
+Function Return the password for LEAP.
+Return code NWSECPASSWD?NWSECPASSWD＝easymppassword
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks *Valid only when IM-Type is 22 or 23..
+
+===== PAGE 55 =====
+SEIKO EPSON CONFIDENTIAL
+55/59
+Set WPA-PSK key
+Command NWSECPSK x
+Parameter x = WPA-PSK key
+Function Specify WPA-PSK key
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks Setting example: NWSECPSK easymppsk*Valid only when IM-Type is 22 or 23.
+Get WPA-PSK key
+Command NWSECPSK?
+Parameter
+Function Return the WPA-PSK key.
+Return code NWSECPSK?NWSECPSK＝easympkey
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks *Valid only when IM-Type is 22 or 23.
+Validate setting value in the projector
+Command NWRESET
+Parameter Absence
+Function Validate setting value in the projector
+Return code Absence
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when a parameter error occurred, adjustment
+cannot be made with the input value, or the command termination is other than a
+normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter
+presence/absence
+INIT Absence INC Absence DEC Absence
+Remarks
+Setting example ：NWRESET
+*Valid only when IM-Type is 22 or 23.
+**Not validate setting when the status of projector is stand-by mode.
+
+===== PAGE 56 =====
+SEIKO EPSON CONFIDENTIAL
+56/59
+6.1 Character Restrictions
+The characters that can be set to the character string of the parameter are defined below.
+The character codes, 0x00 to 0x1F and 0x80 to 0xff, cannot be set. The shaded characters cannot be set, either.
+If any character that cannot be set exists in the parameter, "ERR" is returned as the status.
++0 +1 +2 +3 +4 +5 +6 +7 +8 +9 +a +b +c +d +e +f
+0x20 ! " # $ % & ' ( ) * + , - . /
+0x30 0 1 2 3 4 5 6 7 8 9 : ; < = > ?
+0x40 @ A B C D E F G H I J K L M N O
+0x50 P Q R S T U V W X Y Z [ ¥ ] ^ -
+0x60 ` a b c d e f g h i j k l m n o
+0x70 p q r s t u v w x y z { | } ~
+Set projector name (NWPNAME)
++0 +1 +2 +3 +4 +5 +6 +7 +8 +9 +a +b +c +d +e +f
+0x20 ! " # $ % & ' ( ) * + , - . /
+0x30 0 1 2 3 4 5 6 7 8 9 : ; < = > ?
+0x40 @ A B C D E F G H I J K L M N O
+0x50 P Q R S T U V W X Y Z [ ¥ ] ^ -
+0x60 ` a b c d e f g h i j k l m n o
+0x70 p q r s t u v w x y z { | } ~
+Remarks) From the computer naming rules of Windows
+Community name (NWCNAME)
++0 +1 +2 +3 +4 +5 +6 +7 +8 +9 +a +b +c +d +e +f
+0x20 ! " # $ % & ' ( ) * + , - . /
+0x30 0 1 2 3 4 5 6 7 8 9 : ; < = > ?
+0x40 @ A B C D E F G H I J K L M N O
+0x50 P Q R S T U V W X Y Z [ ¥ ] ^ -
+0x60 ` a b c d e f g h i j k l m n o
+0x70 p q r s t u v w x y z { | } ~
+Mail destination address x(NWSMTPT0x)
++0 +1 +2 +3 +4 +5 +6 +7 +8 +9 +a +b +c +d +e +f
+0x20 ! " # $ % & ' ( ) * + , - . /
+0x30 0 1 2 3 4 5 6 7 8 9 : ; < = > ?
+0x40 @ A B C D E F G H I J K L M N O
+0x50 P Q R S T U V W X Y Z [ ¥ ] ^ -
+0x60 ` a b c d e f g h i j k l m n o
+0x70 p q r s t u v w x y z { | } ~
+Remarks) Properly, the characters that can be used as the mail address should be defined according to RFC2234, 2821 and 2822,
+but check is made according to the instructions in the above table.
+ＥＳＳＩＤ（NWWLCNF、NWWLCNFS、NWESSID2、NWESSID3）
++0 +1 +2 +3 +4 +5 +6 +7 +8 +9 +a +b +c +d +e +f
+0x20 ! " # $ % & ' ( ) * + , - . /
+0x30 0 1 2 3 4 5 6 7 8 9 : ; < = > ?
+0x40 @ A B C D E F G H I J K L M N O
+0x50 P Q R S T U V W X Y Z [ ¥ ] ^ _
+0x60 ` a b c d e f g h i j k l m n o
+0x70 p q r s t u v w x y z { | } ~
+Note: IM-Type that is 23 or larger number excluding IM-M and IM-XP, treats “^ “ as space by IM internal processing..
+
+===== PAGE 57 =====
+SEIKO EPSON CONFIDENTIAL
+57/59
+6.2 COMMAND LIST
+Command list for Tyep A, B, C, D, E, F, G, and H
+TypeCommand Explanation
+A,D,J B C E F G H,I J K
+NWTRAPIP1 Set SNMP trap destination address 1 OK OK OK OK OK OK OK OK OK
+NWTRAPIP1? Get SNMP trap destination address 1 OK OK OK OK OK OK OK OK OK
+NWTRAPIP2 Set SNMP trap destination address 2 OK OK OK OK OK OK OK OK OK
+NWTRAPIP2? Get SNMP trap destination address 2 OK OK OK OK OK OK OK OK OK
+NWPNAME Set projector name OK OK OK OK OK OK OK OK OK
+NWONAME? Get projector name OK OK OK OK OK OK OK OK OK
+NWCNAME Set community name OK OK OK OK OK OK OK OK OK
+NWCNAME? Get community name OK OK OK OK OK OK OK OK OK
+NWMAC? Get MAC address OK OK OK OK OK OK OK OK OK
+NWSMTPTO1 Set mail destination address 1 OK OK OK OK OK OK OK OK OK
+NWSMTPTO1? Get mail destination address 1 OK OK OK OK OK OK OK OK OK
+NWSMTPTO2 Set mail destination address 2 OK OK OK OK OK OK OK OK OK
+NWSMTPTO2? Get mail destination address 2 OK OK OK OK OK OK OK OK OK
+NWSMTPTO3 Set mail destination address 3 OK OK OK OK OK OK OK OK OK
+NWSMTPTO3? Get mail destination address 3 OK OK OK OK OK OK OK OK OK
+NWSMTPSVR Set SMTP server IP address OK OK OK OK OK OK OK OK OK
+NWSMTPSVR? Get SMTP server IP address OK OK OK OK OK OK OK OK OK
+NWSMTPPORT Set SMTP port number OK OK OK OK OK OK OK OK OK
+NWSMTPPORT? Get SMTP port number OK OK OK OK OK OK OK OK OK
+NWSMTPEVT1 Set notification event 1 OK OK OK OK OK OK OK OK OK
+NWSMTPEVT1? Get notification event 1 OK OK OK OK OK OK OK OK OK
+NWSMTPEVT2 Set notification event 2 OK OK OK OK OK OK OK OK OK
+NWSMTPEVT2? Get notification event 2 OK OK OK OK OK OK OK OK OK
+NWSMTPEVT3 Set notification event 3 OK OK OK OK OK OK OK OK OK
+NWSMTPEVT3? Get notification event 3 OK OK OK OK OK OK OK OK OK
+NWSMTPACT Set mail notification function ON/OFF OK OK OK OK OK OK OK OK OK
+NWSMTPACT? Get mail notification function ON/OFF OK OK OK OK OK OK OK OK OK
+NWSMTPTEST Test mail function OK OK OK OK OK OK OK OK OK
+NWCNF Set IP, sub-net, gateway (wired LAN) OK OK OK OK OK OK OK OK OK
+NWCNF? Get IP, sub-net, gateway (wired LAN) OK OK OK OK OK OK OK OK OK
+NWWLCNF Set IP, sub-net, gateway (wireless LAN) OK OK
+NWWLCNF? Get IP, sub-net, gateway (wireless LAN) OK OK
+NWWINS Set WINS address OK
+NWWINS? Get WINS address OK
+NWDNS Set DNS address OK
+NWDNS? Get DNS address OK
+NWDNSDMN Set DNS suffix OK
+
+===== PAGE 58 =====
+SEIKO EPSON CONFIDENTIAL
+58/59
+NWDNSDMN? Get DNS suffix OK
+NWIF? Get communication network IF type OK OK OK OK OK OK OK
+NWWLCNFS Set IP address, sub-net mask, default gateway（for 802.1x） OK OK
+NWWLCNFS? Get IP address, sub-net mask, default gateway（for 802.1x） OK OK
+NWESSID2 Set the second ESSID OK
+NWESSID2? Get the second ESSID OK
+NWESSID3 Set the third ESSID OK
+NWESSID3? Get the third ESSID OK
+NWWLSEC Set security system OK OK OK
+NWWLSEC? Get security system OK OK OK
+NWWEP Set WEP Key ID OK OK OK
+NWWEP? Get WEP Key ID OK OK OK
+NWWEP1 Set WEP encryption key 1 OK OK OK
+NWWEP1? Get WEP encryption key 1 OK OK OK
+NWWEP2 Set WEP encryption key 2 OK OK OK
+NWWEP2? Get WEP encryption key 2 OK OK OK
+NWWEP3 Set WEP encryption key 3 OK OK OK
+NWWEP3? Get WEP encryption key 3 OK OK OK
+NWWEP4 Set WEP encryption key 4 OK OK OK
+NWWEP4? Get WEP encryption key 4 OK OK OK
+NWPRIMIF Set prior interface OK OK OK
+NWPRIMIF? Get prior interface OK OK OK
+NWSECUSER Set LEAP user name OK OK OK
+NWSECUSER? Get LEAP user name OK OK OK
+NWSECPASSWD Set LEAP passward OK OK OK
+NWSECPASSWD? Get LEAP passward OK OK OK
+NWSECPSK Set WPA-PSK key OK OK OK
+NWSECPSK? Get WPA-PSK key OK OK OK
+6.3 Models
+Type A EMP/PL-7800/7900/8300/9300/TW500
+Type B EMP/PL-8350, EMP-8300 with ELPXP01
+Type C EMP/PL-735/7850/7950
+Type D EMP/PL-830
+Type E EMP/PL-737/745/755/765/835
+Type F EMP/PL-1715/1815
+Type G EMP/PL-1825, EB/PL-G5150/G5350/1725/1735W
+Type H EMP/PL-6100
+Type I EMP/PL-400W/6110/83/83H/83+/822/822H/822+, EB/PL-G5000/G5100/G5200W/G5300/410W
+Type J EB/PL-84
+Type K
+EB/PL-85/826W/825/450Wi/Brigh/tLink450Wi/450W/460i/460/460e/84H/84He/84+/84L/85H/85+/825H/825+/826WH/826W+
+
+===== PAGE 59 =====
+SEIKO EPSON CONFIDENTIAL
+59/59
+7. Appendix A: COMMAND TO GET PROJECTOR STATUS INFORMATION
+7.1 Get Event Type (IMEVENT?)
+Command IMEVENT?
+Parameter Absence
+Function
+Get the event type when an event (INT) is generated from the projector.
+Return example:IMEVENT?
+IMEVENT=0001 01 0001 0001
+Return code
+<Event code> <Parameter 1> <Parameter 2> Parameter 3>
+Refer to Table 1 for details.
+Status
+':' Normal termination.
+'ERR' Abnormal termination. (Returned when the command termination is
+other than a normal termination.)
+Disclosed/non-disclosed Non-disclosed
+Parameter presence/absence INIT Absence INC Absence DEC Absence
+Remarks
+<Table 1>
+Response data of Get event type Reference
+Type
+Event
+code
+*2 Parameters Remarks
+ESC/VP21-compatible
+commands *1
+Projector
+status
+change
+notification
+1 <Parameter 1: 1 byte>Projector status
+01: Standby
+02: Warmup
+03: Normal
+04: Cool down
+05 to FE: (Empty)
+FF: Abnormal
+<Parameter 2: 2 bytes>
+Warning type
+Bit 0: Lamp life
+Bit 1: No signal
+Bit 2: Unsupported signal
+Bit 3: Air filter
+Bit 4: High temperature
+Bit 5: Reserved
+(aspect change)
+Bit 6 to Bit 15 (reserved)
+<Parameter 3: 2 bytes>
+Alarm type
+Bit 0: Lamp ON failure
+Bit 1: Lamp lid
+Bit 2: Lamp burnout
+(ON, then OFF)
+Bit 3: Fan
+Bit 4: Temperature sensor
+Bit 5: High temperature
+Bit 6: Interior (system)
+Bit 7 to Bit 15 (Reserved)
+· Always check the warning
+type. (Since no warning is
+indicated by all bits 0, clear
+the bits that have restored
+from the warnings to 0.) The
+"air filter" is added now for
+use when a dedicated sensor
+is installed in the future. For
+the time being, "high
+temperature" is used.
+· The alarm type is valid only
+when the projector status is
+"abnormal". (Because of the
+ESC/VP21 properties, the
+alarm type can be made not
+to be sent unless an error
+occurs. This is entrusted to
+the judgment of the
+ESC/VP21 integration
+committee.)
+PWSTA TUS?
+<Parameter 1: 1 byte>
+Projector status
+01: Standby
+02: Warmup
+03: Normal
+04: Cool down
+05 to FE: (Empty)
+FF: Abnormal
+<Parameter 2: 2 bytes>
+Warning type
+Bit 0: Lamp life
+Bit 1: No signal
+Bit 2: Unsupported signal
+Bit 3: Air filter
+Bit 4: High temperature
+Bit 5: Reserved
+(aspect change)
+Bit 6 to Bit 15 (reserved)
+<Parameter 3: 2 bytes>
+Alarm type
+Bit 0: Lamp ON failure
+Bit 1: Lamp lid
+Bit 2: Lamp burnout
+(ON, then OFF)
+Bit 3: Fan
+Bit 4: Temperature sensor
+Bit 5: High temperature
+Bit 6: Interior (system)
+Bit 7 to Bit 15 (Reserved)
+* 1 ESC/VP21 commands used when it is desired to get information at other than event occurrence.
+* 2 Should be expressed in 32-bit hexadecimal. Up to 32 events from 01 to 8000.

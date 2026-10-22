@@ -1,0 +1,1370 @@
+
+===== PAGE 1 =====
+ESC/VP21 Command User's Guide for Business Projectors
+ESC/VP21 Command User's Guide for 
+Business Projectors
+
+===== PAGE 2 =====
+ESC/VP21 Command User's Guide for Business Projectors
+Table of Contents
+                           Introduction to ESC/VP21 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 3
+                           ESC/VP21 Command Formats - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -4
+                           Projector state and commands  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -5
+                           Command transmission timing  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -7
+                           Command list and Applicable Models  - - - - - - - - - - - - - - - - - - - - - - - - - - - -9
+                           Command Details  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -12
+                           Appendix - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -24
+                           Revision History  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -25
+Copyright Notice:
+All rights reserved. No part of this public ation may be reproduced, stored in a retrie val system, or transmitted in any form or  by any means,
+electronic, mechanical, photocopying, recording, or otherwise, without the prior written permission of SEIKO EPSON CORPORATION. No
+patent liability is assumed with respect to the use of the info rmation contained herein. Neither is any liability assumed for d amages resulting
+from the use of the information contained herein.
+Neither SEIKO EPSON CORPORATION nor its affiliates shall be liable to the purchaser of this product or third parties for damages, losses,
+costs, or expenses incurred by purchaser or third parties as a result of: accident, misuse, or abuse of this product or unauthorized modifications,
+repairs, or alterations to this product, or (excluding the U.S.) failure to strictly comply with SEIKO EPSON CORPORATION’s operating and
+maintenance instructions.
+SEIKO EPSON CORPORATION shall not be liable against any damages or problems arising from the use of any options or any consumable
+products other than those designated as Original EPSON Products or EPSON Approved Products by SEIKO EPSON CORPORATION.
+EPSON is a registered trademark of SEIKO EPSON CORPORATION. Easy MP is a trademark of SEIKO EPSON CORPORATION. Macin-
+tosh, Mac, and iMac are registered trademar ks of Apple Computer, Inc. IBM is a regist ered trademark of International Business M achines
+Corporation. Windows and Windows NT are registered trademarks of Microsoft Corporation in the United States of America.
+General Notice:
+Other product names used herein are also for identification purposes only and may be trademarks of their respective owners. EPSON disclaims
+any and all rights in those marks.
+©SEIKO EPSON CORPORATION 2003-2008. All rights reserved.
+
+===== PAGE 3 =====
+ESC/VP21 Command User's Guide for Business Projectors
+3 of 25
+1.Introduction to ESC/VP21
+ESC/VP21 is a control command and protocol for Epson projectors, which is used for A/V controller to control and monitor Epson projectors.
+The command codes are comprised of ASCII codes. Therefore the co mmand codes can be understood very easily and you can easily control
+projectors using a PC with a terminal emulator such as Microsoft Hyper terminal.
+Since ESC/VP21 is independent of communication protocols,Serial, USB or TCP/IP network can be used to transmit the commands to projec-
+tors.
+•Serial connection
+A/V controllers normally use a serial connection to control projectors. Refer to Appendix for details.
+•USB connection
+A USB interface can be used to control a projector. Refer to Appendix for details.
+•Network connection
+After establishing a TCP session, ESC/VP21 commands can be sent to projectors. Refer to ESC/VP.net protocol manual.
+Video camera
+VTR
+DVD
+Controller Projector
+Video
+Serial
+Projector with USB I/F
+USB
+PC
+Projector with network I/F
+PC
+A/V controller 
+with network I/F
+Hub
+TCP/IP
+
+===== PAGE 4 =====
+ESC/VP21 Command User's Guide for Business Projectors
+4 of 25
+2.ESC/VP21 Command Formats
+2.1.Set command format
+A set command consists of a command and a parameter. Projector returns a colon after executing the command.
+There are two types of parameters. One is fixed such as ON, OFF, or 21.Other is a step parameter such as INC, DEC or INIT.
+INC increments the parameter by one.
+DEC decrements the parameter by one.
+INIT initializes the parameter.
+Set command example 1
+: SOURCE   21
+                                          Colon from projector           Command              Space              Parameter              Return
+Set command example 2
+: VOL   INC
+                                          Colon from projector           Command              Space              Parameter              Return
+2.2.Get command format
+A get command consists of a command and ?. Projector returns a response parameter after executing the command.
+Get command example
+: SOURCE?
+                                                          Colon from projector           Command            ?             Return
+Response parameter example
+                                                      SOURCE = 21
+                                                      :
+                                                       Colon from projector           Command              =             Parameter
+2.3.Null command
+The null command is a command code of the re turn key code (Hex 0D). Projector returns a colon. The null command can be used to confirm
+that the projector is in operation.
+2.4.Illegal commands
+Projector returns “ERR” and a return key code (Hex 0D) and a colon when it receives invalid commands.
+                                                    
+                                                        ERR
+                                                        :
+
+===== PAGE 5 =====
+ESC/VP21 Command User's Guide for Business Projectors
+5 of 25
+3.Applicable Models
+EMP-600/800/810/811/820,30/52,720/730/520,73/53/74/54,735,8300/9300,7800/7850,S1/S1H,61/81,830/835,740/745/732/
+737,821/828,7900/7950,S3/S4,765/760,755/750,62/82/X3,1715/1710/1705/1700,6000/6100,1815/1810,S5/X5/83/822,260/280/
+6110/6010,400W,83+/822+, 1825, EX90, G5350/G5300/G5150/G5100/G5200W/G5000, S6/X6/W6, 1735W/1730W/1725/1720
+4.Projector state and commands
+4.1.Standby state (operation indicator is in orange)
+When a projector is in a standby state, executable commands depend on projector mode ls and standby configuration (network on, n etwork
+off). Refer to the following table.
+(note1) EMP-61/81/830/835/740/745/821/828 returns "ERR" when it received commands other than PWR ON, PWR? , LAMP? and NULL 
+            commands.
+(note2) EMP-7800/7850 returns "ERR" when it received commands other than PWR ON, PWR? , SOURCE? and NULL commands.
+(note3) EMP-8300/9300 returns "ERR" when it received commands other than PWR ON, SOURCE xx, PWR? , SOURCE? And NULL 
+            commands.
+All projectors returns "ERR" when the command format is not good.
+All projectors returns "ERR" when the projector is not ready to reply the command.
+Null command is command name for "ENTER" or "RETURN" key of the keyboard
+The reply is ":"
+Models Configuration Executable Commands
+61/81
+830/835
+740/745/732/737
+821/828
+S3/S4
+765/760/755/750
+62/82/X3(76)
+6100/6000
+1715/1710/1705/1700
+1815/1810/1825
+S5/X5/83/822/83+/822+/EX90
+260/280
+6110/6010
+400W
+G5350/G5300/G5150/G5100/
+G5200W/G5000
+S6/X6/W6
+network on/off PWR ON , PWR? , LAMP?
+7800/7850/
+8300/9300
+7900/7950
+(note3)
+network on PWR ON , PWR? , SOURCE? , Null 
+command  (note1)
+network off PWR ON (note2)
+Others -
+Model s Power ConsumptionNetwork off Network on
+78007850
+7900/7950
+about 1.5W about 47W
+8300/9300 about 1.5W about 60W
+8300+ELPXP01 about 1.5W about 60W
+830/835 about 1.0W about 38W
+740/745
+732/737
+760/765
+750/755
+about 4.0W about 35W
+(only 745/737/765/755)
+61/81,821/828 about 5.0W about 35W
+62/82
+X3(76)
+about 4.0W
+about 5.0W: 230V area
+about 25W
+about 23W: 120V area
+(only 62/82)
+6100/6000 about 0.4W about 10W
+1715/1705 about 3.8W about 18W
+1815/1810/1825 about 2.6W about 12W
+
+===== PAGE 6 =====
+ESC/VP21 Command User's Guide for Business Projectors
+6 of 25
+4.2.Power on state (operation indicator is in green)
+All commands are executable.
+5.Error Status
+A projector returns the error status when a projector receives "ERR?" command.
+The following projectors can return the erro r status while the projectors become the c ool-downs status at an error and the proj ectors become
+the error status after cooling down.
+EMP-1700/1705/1710/1715, 6000/6100/6110/6010, 1815/1810/1825, S5/X5/83/822, 260/280, 400W
+EB-G5000/G5100/G5150/G5200W/G5300/G5350
+And later models.
+[The other models except the above models]
+The models except the above models can return the error status  while the projectors become the cool-downs status at an error.
+The following table shows the return codes and the meaning of error status.
+S5/X5/83/822/83+/822+/EX90 about 4.1W about 5W
+(only 83/822)
+260/280 about 4.1W about 4.1W
+(only 280)
+6110/6010 about 0.4W about 10.4W
+400W about 4.2W about 4.9W
+G5350/G5300/G5150/G5100/
+G5200W/G5000
+about 0.4W about 10W
+S6/X6/W6 about 3W -
+1735W/1730W/1725/1720 about 4.0W about 9.0W
+Command Returne code
+ERR?
+00 :There is no error or the error is recovered
+01 : Fan error
+03 : Lamp failure at power on
+04 : High internal temperature error
+06 : Lamp error
+07 : Open Lamp cover door error
+08 : Cinema filter error
+09 : Electric dual-layered capacitor is disconnected 
+0A : Auto iris error
+0B : Subsystem Error
+0C : Low air flow error
+0D : Air filter air fl ow sensor error
+0E : Power supply unit error (Ballast)
+Model s Power ConsumptionNetwork off Network on
+
+===== PAGE 7 =====
+ESC/VP21 Command User's Guide for Business Projectors
+7 of 25
+6.Command transmission timing
+6.1.Standby state
+1)  For all model with the standby configuration of "network on"
+The first command can be sent anytime and the subsequent commands should be sent after receiving a colon from the projector.
+2) Other than 1)
+PWR ON can be sent any time.
+6.2.Power-on state
+A command should be sent after receiving the colon of the previous  command from the projector. The following is an exception. W hen the
+PWR OFF command is sent to 7800/ 7850/8300/9300 with the standby configuration of “net work off”, the subsequent command should b e
+sent 10 seconds after the colon is received.
+In case that you can not wait for the colon and send a command after receiving it, instead send a command after the execution time listed in the
+following table.
+(note1) When a projector receives the PWR ON command, it tries to ignite the lamp by activating the ballast unit. In case that the lamp fails to 
+             be ignited, it tries to ignite the lamp three times at maximum.
+            When the lamp fails to be ignited three times, it is a lamp failure.
+            The projector returns a colon within 40, 70 and 100 seconds when successful in the first, second and third times respectively.
+(note2) When the input video sync signal is stable, a colon is returned within 5 seconds. However, it may take more than 5 seconds when the 
+             input video sync signal is unstable.
+(note3) Projector initiates the process of the input video signal recognition when it receives a SOURCE command. If the signal of the video 
+                input is changing (for example, from SVGA to XGA by A/V controller) during the process of the input video signal recognition, the               
+             projector returns “ERR”.
+(note 4) Projectors execute the PWR OFF command after they start completely. 
+(note 5) Projectors might return "ERR" when "Quick Setup" and "Auto Focus" functions are set to ON.
+Command Models Execution time
+PWR ON - 40 seconds  (note 1)
+830/835 (note 5)
+7900/7950/740/745
+20 seconds
+61/81/821/828/S3/S4 25 seconds
+PWR OFF (note 4) 600/800/810/811/820 130 seconds
+All others 50 seconds
+830/835 10 seconds
+740/745
+821
+732/737
+20 seconds
+S3/S4
+765/760
+755/750
+62/82/X3(76)
+6100/6000
+1715/1710/1705/172
+1815/1810/1825
+S5/X5/83/822/83+/822+/EX90
+260/280
+6110/6010
+400W
+G5350/G5300/G5150/G5100/
+G5200W/G5000
+S6/X6/W6
+1735W/1730W/1725/1720
+5 seconds
+SOURCE  (note3) - 5 seconds  (note 2)
+All others - 3 seconds
+
+===== PAGE 8 =====
+ESC/VP21 Command User's Guide for Business Projectors
+8 of 25
+6.3.Warning and abnormal cases
+Projector executes commands normally while a warning indicator such as a high temperature warning is on.
+Projector does not execute commands nor return a colon when the projector is in an abnormal state such as a lamp failure and ab normal high
+temperature.
+As for EMP-6100/6000, EMP-1715/1710/1705/1700,  EMP-1815/1810, EMP-S5/X5/83/822 and the following models, when an abnormal
+state is continued for 130 seconds after, PWR ON command　becomes possible.
+
+===== PAGE 9 =====
+ESC/VP21 Command User's Guide for Business Projectors
+9 of 25
+7.Command list and Applicable Models
+7.1.Command table 1 ( Fixed parameter)
+                                                                                                                                                                                (OSupported   -Not supported)
+Function Command
+600/800/
+810/811/
+820
+720/730/
+520/735 30/52 73/5374/54 8300/9300
+7800/
+7850/
+7900/
+7950
+S1/S1H 61/81 830/835
+ Power control PWR OOOOOOOOO
+Input source SOURCE OOOOOOOOO
+PinP setting PINP O --- O O -- O
+ A/V Mute Screen MSEL OOOOOOOOO
+ Auto Keystone AUTOKEYSTONE -O-O-O-O O
+Aspect setting ASPECT - - - OOOO - O
+ Color Mode CMODE OOOOOOOOO
+ Lamp hour LAMP? OOOOOOOOO
+Brightness level LUMINANCE - - - OOO - OO
+ A/V Mute MUTE OOOOOOOOO
+ Freeze FREEZE - OOOOOOOO
+ Rear Projection HREVERSE OOOOOOOOO
+ Ceiling VREVERSE OOOOOOOOO
+ Audio Input AUDIO O - O O - O ---
+ Key operation KEY OOOOOOOOO
+Function Command
+740/745
+732/
+737765/
+760
+755/750
+821/828 S3/X3/S4 62/82 6100/6000
+1715/
+1710/
+1705/
+1700
+1815/
+1810/
+1825
+S5/X5/
+83/822/
+83+/
+822+/
+EX90
+260/280
+ Power control PWR OOOOOOOOO
+Input source SOURCE OOOOOOOOO
+PinP setting PINP ---------
+ A/V Mute Screen MSEL OOOOOOOOO
+ Auto Keystone AUTOKEYSTONE O O - O --- O
+(no S5)
+O
+(no 260)
+Aspect setting ASPECT O - OOOOOOO
+ Color Mode CMODE OOOOOOOOO
+ Lamp hour LAMP? OOOOOOOOO
+Brightness level LUMINANCE OOOOOOOOO
+ A/V Mute MUTE OOOOOOOOO
+ Freeze FREEZE OOOOOOOOO
+ Rear Projection HREVERSE OOOOOOOOO
+ Ceiling VREVERSE OOOOOOOOO
+ Audio Input AUDIO ---- O
+-
+----
+ Key operation KEY OOOOOOOOO
+Closed Caption CCAP ---- O ----
+Air Filter Alarm Timer FLWARNING ---- O ----
+Air Filter Timer FILTIME ---- O ----
+Air Filter Usage Time FILTER ---- O ----
+
+===== PAGE 10 =====
+ESC/VP21 Command User's Guide for Business Projectors
+10 of 25
+Function Command 6110/6010 400W
+G5350/
+G5300/
+G5150/
+G5100/
+G5200W/
+G5000
+S6/X6/
+W6
+1735W/
+1730W/
+1725/
+1720
+ Power control PWR OOOOO
+Input source SOURCE OOOOO
+PinP setting PINP -----
+ A/V Mute Screen MSEL OOOOO
+ Auto Keystone AUTOKEYSTONE -----
+Aspect setting ASPECT OOOOO
+ Color Mode CMODE OOOOO
+ Lamp hour LAMP? OOOOO
+Brightness level LUMINANCE OOOOO
+ A/V Mute MUTE OOOOO
+ Freeze FREEZE OOOOO
+ Rear Projection HREVERSE OOOOO
+ Ceiling VREVERSE OOOOO
+ Audio Input AUDIO O
+-
+----
+ Key operation KEY OOOOO
+Closed Caption CCAP OOOOO
+Air Filter Alarm Timer FLWARNING O ----
+Air Filter Timer FILTIME O ----
+Air Filter Usage Time FILTER O ----
+
+===== PAGE 11 =====
+ESC/VP21 Command User's Guide for Business Projectors
+11 of 25
+7.2.Command table 2 ( Step parameter)
+(OSupported   -Not supported)
+Function Command
+600/800/
+810/811/
+820
+720/730/
+520/735 30/52 73/5374/54 8300/9300
+7800/
+7850/
+7900/
+7950
+S1/S1H 61/81
+Adjust the volume VOL OOOOOOOO
+Adjust the treble setting
+(Adjust the tone setting)
+TONEH O (O)( O) -O O- -
+Adjust the bass setting TONEL O --- O O --
+ Set Brightness  BRIGHT OOOOOOOO
+Set Contrast CONTRAST OOOOOOOO
+Set Tint TINT OOOOOOOO
+Set vertical keystone value  VKEYSTONE OOOOOOOO
+Set horizontal keystone value  HKEYSTONE O ---- O --
+Function Command 830/835
+740/745
+732/
+737/
+765/760
+755/750
+821/828
+S3/X3/
+62/82/
+S4
+6100/
+6000
+1715/
+1710/
+1705/
+1700
+1815/
+1810/
+1825
+S5/X5/
+83/822/
+83+822+
+/EX90
+Adjust the volume VOL OOOOOOOO
+Adjust the treble setting
+(Adjust the tone setting)
+TONEH O -------
+Adjust the bass setting TONEL --------
+ Set Brightness  BRIGHT OOOOOOOO
+Set Contrast CONTRAST OOOOOOOO
+Set Tint TINT OOOOOOOO
+Set vertical keystone value  VKEYSTONE OOOOOOOO
+Set horizontal keystone value  HKEYSTONE O ----- O -
+Function Command 260/280 6110/6010 400W
+G5350/
+G5300/
+G5150/
+G5100/
+G5200W/
+G5000
+S6/X6/
+W6
+1735W/
+1730W/
+1725/
+1720
+Adjust the volume VOL O OOOOO
+Adjust the treble setting
+(Adjust the tone setting)
+TONEH - -----
+Adjust the bass setting TONEL - -----
+ Set Brightness  BRIGHT O OOOOO
+Set Contrast CONTRAST O OOOOO
+Set Tint TINT O OOOOO
+Set vertical keystone value  VKEYSTONE O OOOOO
+Set horizontal keystone value  HKEYSTONE -- -O- -
+
+===== PAGE 12 =====
+ESC/VP21 Command User's Guide for Business Projectors
+12 of 25
+8.Command Details
+8.1.Command table 1 ( Fixed parameter) 
+Set commands Get commands Parameter for set(Return code for get) Models Function 
+PWR xx -
+-
+PWR?
+ON All models Power on
+OFF All models Power off
+00 : "Standby" at the time of   
+       "Network off"
+61/81
+830/835
+740/745
+732/737
+821/828
+7900/7950
+S3/S4
+765/760
+755/750
+62/82
+6100/6000
+1715/1710/1705/1700
+1815/1810/1825
+S5/X5/83/822/83+/822+/EX90
+260/280
+6110/6010
+400W
+G5350/G5300/G5150/
+G5100/G5200W/G5000
+S6/X6/W6
+1735W/1730W/1725/1720
+Return the "Standby" at the
+time of  "Network off" status
+check
+01 : Power on All models Return the power on status
+check
+02 : Warm up 6100/6000
+1715/1710/1705/1700
+1815/1810/1825
+S5/X5/83/822/83+/822+/EX90
+260/280
+6110/6010
+400W
+G5350/G5300/G5150/
+G5100/G5200W/G5000
+S6/X6/W6
+1735W/1730W/1725/1720
+Return the warm up status
+check
+03 : Cooling down 6100/6000
+1715/1710/1705/1700
+1815/1810/1825
+S5/X5/83/822/83+/822+/EX90
+260/280
+6110/6010
+400W
+G5350/G5300/G5150/
+G5100/G5200W/G5000
+S6/X6/W6
+1735W/1730W/1725/1720
+Return the cooling down sta-
+tus check
+
+===== PAGE 13 =====
+ESC/VP21 Command User's Guide for Business Projectors
+13 of 25
+04 : "Standby" at the time of   
+       "Network on"
+7800/7850
+8300/9300
+61/81
+830/835
+7900/7950
+62/82
+6100/6000
+1715/1705
+1815/1825
+83/822/83+/822+
+280
+6110/6010
+400W
+G5350/G5300/G5150/
+G5100/G5200W/G5000
+1735W/1725
+Return the "Standby" at the
+time of  "Network on" status
+check
+05 : Abnomal Standby 6100/6000
+1715/1710/1705/1700
+1815/1810/1825
+S5/X5/83/822/83+/822+/EX90
+260/280
+6110/6010
+400W
+G5350/G5300/G5150/
+G5100/G5200W/G5000
+S6/X6/W6
+1735W/1730W/1725/1720
+After the fixed time passes,
+an abnormal standby is
+returned after this machine 
+is abnormally generated.
+Set commands Get commands Parameter for set(Return code for get) Models Function 
+
+===== PAGE 14 =====
+ESC/VP21 Command User's Guide for Business Projectors
+14 of 25
+SOURCE  xx SOURCE? 11 : PC1(analog-RGB)
+12 : PC1(digital-RGB)
+13 : PC1(RGB-Video)
+21 : PC2(analog-RGB)
+22 : PC2(RGB-Video RGsB)
+23 : Component Video(YCbCr)
+24 : Component Video(YPbPr)
+41 : Video (RCA)
+42 : Video (S)
+600/800/810/811/820 Select the input source
+11 : RGB
+14 : Input 1(YCbCr)
+15 : Input 1(YPbPr)
+40 : VIideo
+41 : Video(RCA)
+42 : Video(S)
+30/52
+73/53
+720/730
+S1/S1H
+11 : RGB
+14 : Input 1(YCbCr)
+15 : Input 1(YPbPr)
+40 : VIideo
+41 : Video(RCA)
+42 : Video(S)
+50 : EasyMP
+735
+10 : INPUT1(D-Sub)
+11 : INPUT1(analog-RGB)
+13 : INPUT1(RGB-Video)
+20 : INPUT2(D-Sub)
+21 : INPUT2(analog-RGB)
+23 : INPUT2(RGB-Video)
+30 : INPUT3(DVI-D)
+31 : INPUT3(D-RGB)
+40 : Video
+41 : Video(RCA)
+42 : Video(S)
+B0 : INPUT4(BNC)
+B1 : INPUT4(analog-RGB)
+B2 : INPUT4(RGB-Video)
+B3 : INPUT4(YCbCr)
+B4 : INPUT4(YPbPr)
+8300/9300
+10 : INPUT1(D-Sub)
+11 : INPUT1(analog-RGB)
+13 : INPUT1(RGB-Video)
+30 : INPUT3(DVI-D)
+31 : INPUT3(D-RGB)
+40 : Video
+41 : Video(RCA)
+42 : Video(S)
+B0 : INPUT4(BNC)
+B1 : INPUT4(analog-RGB)
+B2 : INPUT4(RGB-Video)
+B3 : INPUT4(YCbCr)
+B4 : INPUT4(YPbPr)
+7800/7850
+50 : EasyMP 7850/8300+ELPXP01
+11 : RGB
+14 : Input 1(YCbCr)
+15 : Input 1(YPbPr)
+20 : Input 2
+21 : Input 2(RGB)
+24 : Input 2(YCbCr)
+25 : Input 2(YPbPr)
+40 : VIideo
+41 : Video(RCA)
+42 : Video(S)
+54/74
+Set commands Get commands Parameter for set(Return code for get) Models Function 
+
+===== PAGE 15 =====
+ESC/VP21 Command User's Guide for Business Projectors
+15 of 25
+SOURCE  xx SOURCE? 10 : Input 1
+11 : Input 1(RGB)
+14 : Input 1(Compornent)
+20 : Input 2
+21 : Input 2(RGB)
+24 : Input 2(Component)
+40 : VIideo
+41 : Video(RCA)
+42 : Video(S)
+61/81
+821/828
+62/82
+835/830
+6100/6000
+1815/1810/1825
+83/82283+/822+
+280
+6110/6010
+400W
+Select the input source
+10 : Input 1
+11 : Input 1(RGB)
+14 : Input 1(Compornent)
+40 : VIideo
+41 : Video(RCA)
+42 : Video(S)
+740/745
+732/737
+S3/S4
+765/760
+755/750
+X3(76)
+1715/1710/1705/1700
+S5/X5/EX90
+260
+S6/X6/W6
+1735W/1730W/1725/1720
+50 : Easy MP 745
+737
+835
+1715/1705
+1815
+G5350
+1735W/1725
+10 : INPUT1(D-Sub)
+11 : INPUT1(RGB)
+14 : INPUT1(Component)
+30 : INPUT3(DVI-D)
+31 : INPUT3(D-RGB)
+40 : Video
+41 : Video(RCA)
+42 : Video(S)
+B0 : INPUT4(BNC)
+B1 : INPUT4(RGB)
+B4 : INPUT4(Component)
+79007950
+10 : INPUT1(D-Sub)
+11 : INPUT1(RGB)
+14 : INPUT1(Component)
+20 : INPUT2(D-Sub)
+21 : INPUT2(RGB)
+24 : INPUT2(Component)
+30 : INPUT3(HDMI)
+31 : INPUT3(D-RGB)
+33 : INPUT3(RBG-Video)
+34 : INPUT3(YCbCr)
+35 : INPUT3(YPbPr)
+40 : Video
+41 : Video2(RCA)
+42 : Video(S)
+45 : Video1(BNC)
+B0 : INPUT4(5BNC)
+B1 : INPUT4(RGB)
+B4 : INPUT4(Component)
+G5350
+G5300
+G5150
+G5100
+G5200W
+10 : INPUT1(D-Sub)
+11 : INPUT1(RGB)
+14 : INPUT1(Component)
+20 : INPUT2(D-Sub)
+21 : INPUT2(RGB)
+24 : INPUT2(Component)
+40 : Video
+41 : Video2(RCA)
+42 : Video(S)
+45 : Video1(BNC)
+G5000
+Set commands Get commands Parameter for set(Return code for get) Models Function 
+
+===== PAGE 16 =====
+ESC/VP21 Command User's Guide for Business Projectors
+16 of 25
+PINP 
+[source posX posY 
+size]
+(Ex)
+PINP   42   1   2   1
+- source : Video source of 
+              sub-screen
+               (Video or S-video)
+              source code
+posX : X coordinate (0-15)of 
+            sub-screen from left
+            Horizontal is divided 
+            into 16           
+            (default value is used 
+            when omitted)
+posY : Y coordinate (0-15)of 
+            sub-screen from top
+            Vertical is divided 
+            into 16           
+            (default value is used 
+            when omitted)
+size : Size of sub-screen
+           0-4 incremental zoom
+           (default value is used 
+            when 0 or omitted)
+600/800/810/811/820
+7800/7850
+8300/9300
+830/835*
+7900/7950
+Set P in P
+*"830/835" cannot specify a
+sub-screen.
+Size should put in “0”.
+PINP xx - OFF End PinP
+MSEL  xx MSEL? 00 : Black screen
+01 : Blue screen
+02 : User logo
+600/800/810/811/820
+730/720/520/735
+7800/7850
+8300/9300
+61/81
+830/835
+740/745
+821
+7900/7950
+732/737
+S3/S4
+765/760
+755/750
+6100/6000
+1715/1710/1705/1700
+1815/1810/1825
+S5/X5/83/822/83+/822+/EX90
+260/280
+6110/6010
+400W
+G5350/G5300/G5150/
+G5100/G5200W/G5000
+S6/X6/W6
+1735W/1730W/1725/1720
+Set A/V Mute Screen
+AUTOKEYSTONE xx AUTOKEY-
+STONE ?
+ON   :  Auto Keystone ON
+OFF : Auto Keystone OFF
+73/53/74/54
+735
+7800/7850
+61/81
+830/835
+740/745/732/737
+821/828
+7900/7950
+765/760
+755/750
+62/82
+1715/1710/1705/1700
+1815/1810/1825
+X5/83/822/83+/822+
+280
+X6/W6
+1735W/1730W/1725/1720
+Set autokeystone on or off
+- 730/720/520
+Set commands Get commands Parameter for set(Return code for get) Models Function 
+
+===== PAGE 17 =====
+ESC/VP21 Command User's Guide for Business Projectors
+17 of 25
+ASPECT xx ASPECT? 10 : 4:3
+12 : zoom 4:3
+20 : 16:9
+74/54
+7800/7850
+8300/9300
+S1/S1H
+830/835
+7900/7950
+Set aspect ratio
+10 : 4:3
+20 : 16:9
+73/53
+735
+740/745
+732/737
+S3/S4
+765/760
+755/750
+62/82/X3(76)
+1715/1710/1705/1700
+In put signal is PC
+00 : Nomal
+10 : 4:3
+20 : 16:9
+In put signal is Video
+10 : 4:3
+20 : 16:9
+21 : 16:9 (up)
+22 : 16:9 (down)
+6100/6000
+1815/1810/1825
+S5/X5/83/822/83+/822+/EX90
+260/280
+6110/6010
+S6/X6
+1725/1720
+In put signal is PC
+00 : Nomal
+10 : 4:3
+20 : 16:9
+60 : Through
+In put signal is Video1/Video2
+10 : 4:3
+20 : 16:9
+In put signal is HDMI
+10 : 4:3
+20 : 16:9
+30 : Auto
+60 : Through
+G5350/G5300/G5150/
+G5100
+In put signal is PC
+00 : Nomal
+20 : 16:9
+40 : Full
+50 : Zoom
+60 : Through
+In put signal is HDMI
+20 : 16:9
+30 : Auto
+40 : Full
+50 : Zoom
+60 : Through
+G5200W
+W6
+In put signal is PC
+00 : Nomal
+12 : 4:3
+20 : 16:9
+60 : Through
+In put signal is Video1/Video2
+10 : 4:3
+20 : 16:9
+G5000
+In put signal is PC and Video
+00 : Nomal
+20 : 16:9
+30 : Auto
+40 : Full
+50 : Zoom
+60 : Through
+400W
+Set commands Get commands Parameter for set(Return code for get) Models Function 
+
+===== PAGE 18 =====
+ESC/VP21 Command User's Guide for Business Projectors
+18 of 25
+00 : Nomal
+20 : 16:9
+40 : Full
+50 : Zoom
+60 : Through
+1735W/1730W
+CMODE  xx CMODE? 01 : sRGB
+02 : Normal
+03 : Meeting
+04 : Presentation
+05 : Theater
+06 : Amusement
+30/52
+73/53
+720/730
+735
+600/800/810/811/820
+Set color Mode
+01 : sRGB
+04 : Presentation
+05 : Theater
+08 : Dynamic
+7800/7850
+8300/9300
+01 : sRGB
+04 : Presentation
+05 : Theater
+06 : Living Room
+08 : Dynamic
+S1/S1H
+830/835
+7900/7950
+01 : sRGB
+04 : Presentation
+05 : Theater
+06 : Living Room
+08 : Dynamic
+11 : Black Board
+54/74
+61/81
+740/7457/32/737
+821/828
+765/760/755/750
+01 : sRGB
+04 : Presentation
+05 : Theater
+06 : Game
+08 : Sports
+11 : Black Board
+14 : Photo
+S3/S4
+62/82
+X3(76)
+6100/6000
+S5/X5/83/822/83+/822+/EX90
+260/280
+01 : sRGB
+04 : Presentation
+05 : Theater
+06 : Game
+08 : Sports
+10 : Customized
+11 : Black Board
+14 : Photo
+1715/1710/1705/1700
+1815/1811825
+01 : sRGB
+03 : Text
+04 : Presentation
+05 : Theater
+06 : Game
+08 : Sports
+10 : Customized
+11 : Black Board
+14 : Photo
+6110
+6010
+400W
+G5350/G5300/G5150/
+G5100/G5200W/G5000
+X6/W6
+1735W/1730W/1725/1720
+- LAMP? 0-65535 All models Return the lamp hour
+Set commands Get commands Parameter for set(Return code for get) Models Function 
+
+===== PAGE 19 =====
+ESC/VP21 Command User's Guide for Business Projectors
+19 of 25
+LUMINANCE xx LUMINANCE ? 00 : High
+01 : Low
+73/53/74/54
+7800/7850
+8300/9300
+61/81
+830/835
+740/745/732/737
+821/828
+7900/7950
+S3/S4
+765/760/755/750
+62/82
+X3(76)
+6100/6000
+1715/1710/1705/1700
+1815/1810/1825
+S5/X5/83/822/83+/822+/EX90
+260/280
+6110/6010
+400W
+G5350/G5300/G5150/
+G5100/G5200W/G5000
+X6/W6
+1735W/1730W/1725/1720
+Set brightness level
+MUTE xx MUTE? ON  : A/V Mute ON
+OFF : A/V Mute OFF
+All models Set A/V Mute
+FREEZE xx FREEZE? ON  : Freeze ON
+OFF : Freeze OFF
+All models except 600/800/
+810/811/820
+Set freeze
+HREVERSE xx HREVERSE? ON  :  rear ON
+OFF :  rear OFF
+All models Set rear projection
+VREVERSE xx VREVERSE? ON  : ceiling ON
+OFF : ceiling OFF
+All models Set ceiling projection
+AUDIO xx AUDIO? 01 : Audio1
+02 : Audio2
+03 : USB
+600/800/810/811/820 Select audio input   
+01 : Audio (Computer)
+02 : Audio (Video)
+30/52
+73/53/74/54
+00 : Audio 1 (Computer/DVI)
+01 : Audio 2 (Computer)
+02 : Audio 3 (DVI)
+7800/7850
+7900/7950
+01 : Audio1 (When the S-Video
+is RCA. When the Video is mini)
+02 : Audio2 (When the S-Video
+is mini. When the Video is RCA)
+6100
+6110
+01 : Audio 1 (Internal speaker)
+02 : Audio 2 (External output
+)
+1715/1705
+1735W/1725
+KEY xx - 4A All models except 600/800/
+810/811/820
+ Perfrom”Auto-sync” of a
+remote control button
+47  Perfrom”Freeze” of a remote
+control button
+Set commands Get commands Parameter for set(Return code for get) Models Function 
+
+===== PAGE 20 =====
+ESC/VP21 Command User's Guide for Business Projectors
+20 of 25
+CCAP xx CCAP? 00 : OFF
+11 : CC1
+12 : CC2
+13 : CC3
+14 : CC4
+21 : TEXT1
+22 : TEXT2
+23 : TEXT3
+24 : TEXT4
+6100
+6110
+Select Closed Caption
+00 : OFF
+11 : CC1
+12 : CC2
+83/822/83+/822+
+400W
+G5350/G5300/G5150/
+G5100/G5200W/G5000
+FLWARNING xx FLWARNING? 00 : ON
+01 : OFF
+6100
+6110
+Display setting of warning
+time of Air filter
+FLTIME x1 x2 x1 Object of setting
+00 : All objects
+01 : Object 1
+02 : Object 2
+03 : Object 3
+x2 Set time
+0 : 1-100 (100H)
+1 : 101-200 (200H)
+           I
+14 : 1401-1500 (1500H)*
+6100
+6110
+Setting of use time of air filter
+*The maximum value
+depends on the kind of the
+air filter and the upper bound 
+value is different.
+FILTER? 0-65535 6100
+6110
+Acquisition of use time of air
+filter
+Set commands Get commands Parameter for set(Return code for get) Models Function 
+
+===== PAGE 21 =====
+ESC/VP21 Command User's Guide for Business Projectors
+21 of 25
+8.2.Command table 2 ( Step parameter)
+Set commands Initial value Steps Models Function
+VOL  xx 15 0 - 31 600/800/810/811/820 Set the volume level
+10 0 - 20 720/730/735
+10 0 - 20 30/52
+10 0 - 20 73/53/74/54
+15 0 - 31 8300/9300
+15 0 - 31 7800/7850/7900/7950
+10 0 - 20 S1/S1H
+10 0 - 20 61/81
+15 0 - 30 830/835
+10 0 - 20 740/745/732/737765/760/755/750
+10 0 - 20 821/828
+10 0 - 20 S3/S4
+10 0 - 20 62/82/X3(76)
+10 0 - 20 6100/6000/6110/6010
+10 0 - 20 1715/1710/1705/1700
+10 0 - 20 1815/1810/1825
+10 0 - 20 S5/X5/83/822/83+/822+/EX90
+10 0 - 20 260/280
+10 0 - 20 G5350/G5300/G5150/G5100/G5200W/
+G5000
+10 0 - 20 400W
+15 0 - 20 1735W/1730W/1725/1720
+10 0 - 20 S6/X6/W6
+TONEH  xx 0 -6 - 6 600/800/810/811/820 Set bass level
+0 -8 - 8 720/730/735
+0 -8 - 8 30/52
+0 -6 - 6 8300/9300
+0 -6 - 6 7800/7850/7900/7950
+0 -6 - 6 830/835
+TONEL  xx 0 -6 - 6 600/800/810/811/820 Set bass level
+0 -6 - 6 8300/9300
+0 -6 - 6 7800/7850/7900/7950
+BRIGHT  xx 0 -30 - 30 600/800/810/811/820 Set brightness
+0 -64 - 64 720/730/735
+0 -64 - 64 30/52
+0 -64 - 64 73/53/74/54
+0 -30 - 30 8300/9300
+0 -30 - 30 7800/7850/7900/7950
+0 -20 - 20 S1/S1H
+0 -32 - 32 61/81
+0 -30 - 30 830/835
+0 -12 - 12 740/745/732/737/765/760/755/750
+0 -32 - 32 821/828
+0 -12 - 12 S3
+0 -12 - 12 62/82/X3(76)
+0 -24 - 24 S4
+0 -24 - 24 6100/6000/6110/6010
+0 -24 - 24 1715/1710/1705/1700
+0 -24 - 24 1815/1810/1825
+0 -24 - 24 S5/X5/83/822/83+/822+/EX90
+0 -24 - 24 260/280
+0 -24 - 24 G5350/G5300/G5150/G5100/G5200W/
+G5000
+0 -24 - 24 400W
+
+===== PAGE 22 =====
+ESC/VP21 Command User's Guide for Business Projectors
+22 of 25
+0 -24 - 24 1735W/1730W/1725/1720
+0 -24 - 24 S6/X6/W6
+CONTRAST xx 0 -30 - 30 600/800/810/811/820 Set contrast
+0 -32 - 32 720/730/735
+0 -32 - 32 30/52
+0 -32 - 32 73/53/74/54
+0 -30 - 30 8300/9300
+0 -30 - 30 7800/7850/7900/7950
+0 -30 - 30 S1/S1H
+0 -32 - 32 61/81
+0 -30 - 30 830/835
+0 -32 - 32 740/745/732/737/765/760755/750
+0 -32 - 32 821/828
+0 -12 - 12 S3
+0 -12 - 12 62/82/X3(76)
+0 -24 - 24 S4
+0 -24 - 24 6100/6000/6110/6010
+0 -24 - 24 1715/1710/1705/1700
+0 -24 - 24 1815/1810/1825
+0 -24 - 24 S5/X5/83/82283+/822+/EX90
+0 -24 - 24 260/280
+0 -24 - 24 G5350/G5300/G5150/G5100/G5200W/
+G5000
+0 -24 - 24 400W
+0 -24 - 24 1735W/1730W/1725/1720
+0 -24 - 24 S6/X6/W6
+TINT xx 0 -15 - 15 600/800/810/811/820 Set tint
+0 -15 - 15 720/730/735
+0 -32 - 32 30/52
+0 -32 - 32 73/53/74/54
+0 -15 - 15 8300/9300
+0 -5 - 5 7800/7850/7900/7950
+0 -32 - 32 S1/S1H
+0 -32 - 32 61/81
+0 -15 - 15 830/835
+0 -32 - 32 740/745/732/737/765/760/755/750
+0 -32 - 32 821/828
+0 -32 - 32 S3/S4
+0 -32 - 32 62/82/X3(76)
+0 -32 - 32 6100/6000/6110/6010
+0 -32 - 32 1715/1710/1705/1700
+0 -32 - 32 1815/1810/1825
+0 -32 - 32 S5/X5/83/82283+/822+/EX90
+0 -32 - 32 260/280
+0 -32 - 32 G5350/G5300/G5150/G5100/G5200W/
+G5000
+0 -32 - 32 400W
+0 -32 - 32 1735W/1730W/1725/1720
+0 -32 - 32 S6/X6/W6
+Set commands Initial value Steps Models Function
+
+===== PAGE 23 =====
+ESC/VP21 Command User's Guide for Business Projectors
+23 of 25
+VKEYSTONE xx 0 -60 - 59 600/800/810/811/820 Set vertical keystone value
+0 -30 - 30 720/730/735
+0 -30 - 30 30/52
+0 -30 - 30 73/53/74/54
+0 -64 - 64 8300/9300
+0 -64 - 64 7800/7850/7900/7950
+0 -30 - 30 S1/S1H
+0 -30 - 30 61/81
+0 -64 - 64 830/835
+0 -30 - 30 740/745/732/737/765/760755/750
+0 -30 - 30 821/828
+0 -60 - 60 S3/S4
+0 -60 - 60 62/82/X3(76)
+0 -60 - 60 6100/6000/6110/6010
+0 -60 - 60 1715/1710/1705/1700
+0 -90 - 90 1815/1810/1825
+0 -60 - 60 S5/X5/83/822/83+/822+/EX90
+0 -60 - 60 260/280
+0 -80 - 80 G5350/G5300/G5150/G5100/G5200W/
+G5000
+0 -30 - 30 400W
+0 -60 - 60 1735W/1730W/1725/1720
+0 -60 - 60 S6/X6/W6
+HKEYSTONE xx 0 -29 - 29 600/800/810/811/820 Set horizontal keystone value
+0 -39 - 39 7800/7850/7900/7950
+0 -64 - 64 830/835
+0 -60 - 60 1815/1810
+0 -40 - 40 G5350/G5300/G5150/G5100/G5200W/
+G5000
+Set commands Initial value Steps Models Function
+
+===== PAGE 24 =====
+ESC/VP21 Command User's Guide for Business Projectors
+24 of 25
+9.Appendix
+9.1.Communication specification.
+A projector and a computer can be connected using a serial or USB port. The projector can be remotely controlled by sending
+commands to the projector.
+Serial Connection (600/800/810/811 /820,30/52,73/53/74/54,8300/9300,7800/7850,S1/S1H,61/81,830/835/821,828/7900/
+7950,62/82,6100/6000,1815/1810/1825,83/822/83+/822+,280,6110/6010,400W,G5350/G5300/G5150/G5100/G5200W/G5000)
+ • Select RS-232C at Advanced Setting of the Menu.
+ • Communication condition 
+    Baud rate                   : 9600 bps
+    Data length  : 8 bits
+    Parity  : No
+    Stop bit  : 1 bit
+    Flow control  : No
+ • Connector  : D-sub 9pin
+ • Projector input                   : Control(RS-232C)
+*DTR and DSR are not used.
+USB Connection (600/800/810/811/820, 720/730/520,73/53/74/54,735,8300/9300,7800/7850/61/81,830/835,740/745/732/
+737,821/828,7900/7950,S3/S4,765/760,755/750,62/82/X3(76) ,1715/1710/1705/1700,S5/X5/EX 90,260,G5350/G5150/S6/X6/
+W6,1735W/1730W/1725/1720)
+ • For 600/800/810/811/820, select USB at Advanced Setting of the Menu. 
+ • For 730/720/520/735/74 0/745/732/737/S3/765/760/755/750/X3(76)/S4/1715/1710/1705/1700/S5/X5/260,select Link 21L at
+Advanced Setting of the Menu.
+ • For 8300/8350/9300,select USB at Advanced2 Setting of the Menu.
+ • For 61/81/830/835/821,select USB at Extended Setting of the Menu.
+ • For S6/X6/W6/1735W/1730W/1725/1720,select Wireless Mouse and select Link 21Lat Extended Setting of the Menu.
+ • Epson USB COM Driver has to be installed in your computer to use USB for communication. A COM port is added to your 
+   computer, when the projector and your computer is connected by a USB cable. The added COM is listed at PORT (COM/LPT) 
+   in the device manager tab of System in Control Panel as EPSON COM Emulation port (COMn).
+ • Connector  : USB(B type)
+Projector PC serial cable Computer
+GND 5 5 GND
+RD 2 3 TD
+TD 3 2 RD
+Signal name Function
+GND Common ground
+TD Transmitted data
+RD Received data
+USB COM Driver Models
+EMPUSBSetup.exe 600/8 00/810/811/820/720/730/520/73/53/74/54/735
+EMPUSB2Setup.exe 7800/7850/8300 /9300/61/81/830/835/740/745/732/737/
+821/828/7900/7950/S3/765/760/755/750/62/82/X3(76)S4/
+1715/1710/1705/1700/S5/X5/EX90/260/S6/X6/W6/1735W/
+1730W/1725/1720
+<Projector> <Computer>
+<Projector> <Computer>
+
+===== PAGE 25 =====
+ESC/VP21 Command User's Guide for Business Projectors
+25 of 25
+Revision History
+Revision Issued Date  Page Description
+A Sep 16,2005 All pages First release.
+B Oct 19,2005 All pages. Correction of disclaimer. Model EMP-755/750 addition. 
+C Nov 4,2005 All pages. Model EMP-62/82/X3(76) addition. 
+D Apr 17,2006 All pages. Model EMP-S4 addition. 
+E AUg 11,2006 All pages. Model EMP-6100/6000 and EMP-1715/1710/1705/1700 addition. 
+F Mar 19,2007 All pages. Model EMP-1815/1810 and EMP-S5/X5/83/822 addition. 
+G Jun 4,2007 P .5 Addition of “Applicable Model”.
+H Dec 21,2007 All pages. Model EMP-260/280 addition. 
+I Apr 23, 2008
+All pages.
+P. 6
+Model EMP-6110/6010, EMP-400W, EMP-83+/822+/EX90,EMP-1825,  
+and EB-G5350/G5300/G5150/G5100/G5200W/G5000 addition. 
+Addition of Error status.
+J Sep 19, 2008 All pages. Model EB-1735W/1730W/1725/1720, EB-S6/X6/W6 addition.

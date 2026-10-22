@@ -1,0 +1,55 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sereen"
+version = "0.1.0"
+description = "Discover and control Epson projectors from Linux (PJLink + ESC/VP.net)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "GPL-3.0-or-later" }
+authors = [{ name = "sereen contributors" }]
+keywords = ["epson", "projector", "pjlink", "escvp", "linux"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: X11 Applications :: GTK",
+  "Intended Audience :: End Users/Desktop",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3",
+  "Topic :: Multimedia :: Video :: Display",
+]
+
+# Runtime has no hard dependencies: discovery and control are pure stdlib.
+dependencies = []
+
+[project.optional-dependencies]
+# Nicer subnet detection; the code falls back to /proc/net/route without it.
+psutil = ["psutil>=5.9"]
+gui = ["PyGObject>=3.42"]
+dev = ["pytest>=7.4", "ruff>=0.4", "build>=1.0"]
+
+[project.scripts]
+sereen = "sereen.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/example/sereen-project-linux"
+Issues = "https://github.com/example/sereen-project-linux/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sereen"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 90
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]
